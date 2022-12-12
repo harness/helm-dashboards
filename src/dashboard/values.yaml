@@ -1,0 +1,6 @@
+ng-custom-dashboards:
+  image:
+    tag: "v1.52.24"
+looker:
+  image:
+    tag: "22.18.18.0"

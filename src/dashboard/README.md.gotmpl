@@ -1,0 +1,24 @@
+## Harness Dashboards Chart
+
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+## Usage
+
+Use the following dependency to add this chart repository to your Helm installation:
+
+```
+dependencies:
+    - name: ccm
+      repository: https://harness.github.io/helm-dashboards
+      version: {{ template "chart.version" . }}
+```
+
+## Publishing the Chart
+Publishing of the Chart is done automatically by a Github workflow when a change is pushed to the main branch.
+Before merging to main please remember to manually update the version.
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}
