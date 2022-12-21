@@ -1,6 +1,53 @@
 apiVersion: v1
 entries:
+  looker:
+  - apiVersion: v2
+    appVersion: 22.18.18.0
+    created: "2022-12-21T19:56:54.000442591Z"
+    dependencies:
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    description: A Helm chart for Kubernetes
+    digest: c4872fd36d141a2d64d3ebf7e9ca14899d5fc1292c12b4e5577b7ca7e58bf6b0
+    name: looker
+    type: application
+    urls:
+    - https://github.com/harness/helm-dashboards/releases/download/looker-0.1.16/looker-0.1.16.tgz
+    version: 0.1.16
+  ng-custom-dashboards:
+  - apiVersion: v2
+    appVersion: v1.52.24
+    created: "2022-12-21T19:56:54.192866565Z"
+    dependencies:
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    description: A Helm chart for Kubernetes
+    digest: e33176c3c7c672c450412ab11b727d34059a08a737fcfd6639ec2afa2dec0484
+    name: ng-custom-dashboards
+    type: application
+    urls:
+    - https://github.com/harness/helm-dashboards/releases/download/ng-custom-dashboards-0.1.9/ng-custom-dashboards-0.1.9.tgz
+    version: 0.1.9
   ngcustomdashboard:
+  - apiVersion: v2
+    appVersion: 1.0.76620
+    created: "2022-12-21T19:56:54.359221629Z"
+    dependencies:
+    - name: ng-custom-dashboards
+      repository: file://../ng-custom-dashboards
+      version: 0.1.x
+    - name: looker
+      repository: file://../looker
+      version: 0.1.x
+    description: A Helm chart for custom dashboards
+    digest: 3dffb7b4f0e60e292abeda7297cf65091c0512ac9719699059e1c2fc0d1fc7b2
+    name: ngcustomdashboard
+    type: application
+    urls:
+    - https://github.com/harness/helm-dashboards/releases/download/ngcustomdashboard-0.2.3/ngcustomdashboard-0.2.3.tgz
+    version: 0.2.3
   - apiVersion: v2
     appVersion: 1.0.76620
     created: "2022-12-12T18:18:27.529676338Z"
@@ -52,4 +99,4 @@ entries:
     urls:
     - https://github.com/harness/helm-dashboards/releases/download/ngcustomdashboard-0.2.0/ngcustomdashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2022-12-12T18:18:27.529692539Z"
+generated: "2022-12-21T19:56:54.359235829Z"
