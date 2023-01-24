@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "looker.labels" . | nindent 4 }}
 spec:
-  progressDeadlineSeconds: 300
+  progressDeadlineSeconds: 600
   replicas: 1
   strategy:
     type: RollingUpdate
