@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.2.2
+      version: 0.2.5
 ```
 
 ## Publishing the Chart
@@ -24,6 +24,7 @@ Before merging to main please remember to manually update the version.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | string | `"false"` |  |
+| global.imagePullSecrets | list | `[]` |  |
 | global.ingress.className | string | `""` |  |
 | global.ingress.enabled | bool | `false` |  |
 | global.ingress.hosts | list | `[]` |  |
@@ -46,13 +47,8 @@ Before merging to main please remember to manually update the version.
 | looker.config.timescalePort | string | `"5432"` | timescale port |
 | looker.config.timescaleUser | string | `"postgres"` | timescale user |
 | looker.fullnameOverride | string | `""` |  |
-| looker.global.airgap | string | `"false"` |  |
-| looker.global.ingress.className | string | `""` |  |
-| looker.global.ingress.enabled | bool | `false` |  |
-| looker.global.ingress.tls.enabled | bool | `false` |  |
-| looker.global.loadbalancerURL | string | `""` |  |
-| looker.global.storageClassName | string | `nil` |  |
 | looker.image.digest | string | `""` |  |
+| looker.image.imagePullSecrets | list | `[]` |  |
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
@@ -115,6 +111,7 @@ Before merging to main please remember to manually update the version.
 | ng-custom-dashboards.config.redisSentinelUrls | string | `""` | list of sentinel URLs, example host:port,host:port |
 | ng-custom-dashboards.fullnameOverride | string | `""` |  |
 | ng-custom-dashboards.image.digest | string | `""` |  |
+| ng-custom-dashboards.image.imagePullSecrets | list | `[]` |  |
 | ng-custom-dashboards.image.pullPolicy | string | `"IfNotPresent"` |  |
 | ng-custom-dashboards.image.registry | string | `"docker.io"` |  |
 | ng-custom-dashboards.image.repository | string | `"harness/dashboard-service-signed"` |  |
