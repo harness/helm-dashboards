@@ -1,6 +1,6 @@
 # ng-custom-dashboards
 
-![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.52.24](https://img.shields.io/badge/AppVersion-v1.52.24-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.52.24](https://img.shields.io/badge/AppVersion-v1.52.24-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -8,7 +8,6 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.x.x |
 | https://harness.github.io/helm-common | harness-common | 1.x.x |
 
 ## Values
@@ -36,6 +35,7 @@ A Helm chart for Kubernetes
 | config.redisSentinelUrls | string | `""` | list of sentinel URLs, example host:port,host:port |
 | fullnameOverride | string | `""` |  |
 | global.airgap | string | `"false"` |  |
+| global.imagePullSecrets | list | `[]` |  |
 | global.ingress.className | string | `""` |  |
 | global.ingress.enabled | bool | `false` |  |
 | global.ingress.hosts | list | `[]` |  |
@@ -43,6 +43,7 @@ A Helm chart for Kubernetes
 | global.ingress.tls.secretName | string | `""` |  |
 | global.loadbalancerURL | string | `""` |  |
 | image.digest | string | `""` |  |
+| image.imagePullSecrets | list | `[]` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/dashboard-service-signed"` |  |
