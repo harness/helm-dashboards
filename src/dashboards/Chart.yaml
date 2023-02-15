@@ -28,5 +28,5 @@ dependencies:
   version: 0.2.x
   repository: "file://../ng-custom-dashboards"
 - name: looker
-  version: 0.1.x
+  version: 0.2.x
   repository: "file://../looker"

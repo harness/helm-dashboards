@@ -1,5 +1,6 @@
 # Declare variables to be passed into your templates.
 global:
+  ha: false
   loadbalancerURL: ""
   airgap: "false"
   ingress:
@@ -9,6 +10,13 @@ global:
     tls:
       enabled: false
       secretName: ""
+  istio:
+    enabled: false
+    gateway:
+      create: false
+    virtualService:
+      gateways:
+      hosts:
   imagePullSecrets: []
 
 ng-custom-dashboards:
@@ -200,6 +208,11 @@ looker:
 
   maxSurge: 1
   maxUnavailable: 0
+
+  mysql:
+    user: looker
+    database: looker
+    port: '3306'
 
   image:
     registry: docker.io
