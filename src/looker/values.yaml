@@ -39,21 +39,21 @@ mysql:
 mysqlSecrets:
   password:
     root:
-      name: harness-secrets
+      name: harness-looker-secrets
       # -- name of secret containing the mysql root password
       key: lookerMySqlRootPassword
     user:
-      name: harness-secrets
+      name: harness-looker-secrets
       # -- name of secret containing the mysql looker user password
       key: lookerMySqlUserPassword
 
 lookerSecrets:
   licenseKey:
-    name: harness-secrets
+    name: harness-looker-secrets
     # -- name of secret containing the looker license key which will be provided by Harness
     key: lookerLicenseKey
   masterKey:
-    name: harness-secrets
+    name: harness-looker-secrets
     # -- name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32
     key: lookerMasterKey
   clientId:
@@ -73,7 +73,7 @@ timescaleSecrets:
 
 redshiftSecrets:
   password:
-    name: harness-secrets
+    name: harness-looker-secrets
     # -- name of secret containing the redshift password
     key: redshiftPassword
 
@@ -138,6 +138,8 @@ secrets:
   lookerClientSecret: ""
   lookerEmbedSecret: ""
   lookerSignupUrl: ""
+  lookerMySqlUserPassword: ""
+  lookerMySqlRootPassword: ""
 
 waitForInitContainer:
   image:
