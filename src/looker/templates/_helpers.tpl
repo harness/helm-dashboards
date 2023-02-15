@@ -70,13 +70,19 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "looker.generateLookerSecrets" }}
-    lookerLicenseKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerLicenseKey") "length" 32 "context" $) }}
-    lookerMasterKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerMasterKey") "length" 32 "context" $) }}
-    redshiftPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "redshiftPassword" "providedValues" (list "secrets.redshiftPassword") "length" 16 "context" $) }}
+    lookerLicenseKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerLicenseKey") "length" 32 "context" $) }}
+    lookerMasterKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerMasterKey") "length" 32 "context" $) }}
+    redshiftPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "redshiftPassword" "providedValues" (list "secrets.redshiftPassword") "length" 16 "context" $) }}
+{{- end }}
+
+{{- define "looker.generateLookerSecrets2" }}
     lookerClientId: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerClientId" "providedValues" (list "secrets.lookerClientId") "length" 20 "context" $) }}
     lookerClientSecret: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerClientSecret" "providedValues" (list "secrets.lookerClientSecret") "length" 24 "context" $) }}
     lookerEmbedSecret: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerEmbedSecret" "providedValues" (list "secrets.lookerEmbedSecret") "length" 16 "context" $) }}
     lookerSignupUrl: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerSignupUrl" "providedValues" (list "secrets.lookerSignupUrl") "length" 16 "context" $) }}
-    lookerMySqlRootPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerMySqlRootPassword" "providedValues" (list "secrets.lookerMySqlRootPassword") "length" 8 "context" $) }}
-    lookerMySqlUserPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerMySqlUserPassword" "providedValues" (list "secrets.lookerMySqlUserPassword") "length" 8 "context" $) }}
+{{- end }}
+
+{{- define "looker.generateMysqlSecrets" }}
+    lookerMySqlRootPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-mysql-secrets" "key" "lookerMySqlRootPassword" "providedValues" (list "secrets.lookerMySqlRootPassword") "length" 8 "context" $) }}
+    lookerMySqlUserPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-mysql-secrets" "key" "lookerMySqlUserPassword" "providedValues" (list "secrets.lookerMySqlUserPassword") "length" 8 "context" $) }}
 {{- end }}
