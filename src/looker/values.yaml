@@ -141,7 +141,7 @@ image:
 secrets:
   lookerLicenseKey: "ZW52U3BlY2lmaWM="
   lookerMasterKey: ""
-  redshiftPassword: ""
+  clickhousePassword: ""
   lookerClientId: ""
   lookerClientSecret: ""
   lookerEmbedSecret: ""

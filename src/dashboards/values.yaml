@@ -137,7 +137,7 @@ looker:
     # -- email address of the support user, required for initial signup and support
     email: 'harnessSupport@harness.io'
     # -- timescale connection name, must match model connection name
-    timescaleConnectionName: 'timescale'
+    timescaleConnectionName: 'smp-timescale'
     # -- timescale hostname
     timescaleHost: 'timescaledb-single-chart.harness'
     # -- timescale port
@@ -146,16 +146,24 @@ looker:
     timescaleDatabase: 'harness'
     # -- timescale user
     timescaleUser: 'postgres'
-    # -- redshift connection name, must match model connection name
-    redshiftConnectionName: redshift-ccm
-    # -- redshift hostname
-    redshiftHost:
-    # -- redshift port
-    redshiftPort: '5439'
-    # -- redshift database name
-    redshiftDatabase:
-    # -- redshift user
-    redshiftUser: looker
+    # -- timescale connection name for feature flags, must match model connection name
+    ffConnectionName: 'smp-timescale-cf'
+    # -- timescale database name for feature flags
+    ffDatabase: 'harness_ff'
+    # -- postgres connection name for STO, must match model connection name
+    stoConnectionName: 'smp-postgres'
+    # -- postgres database name for STO
+    stoDatabase: 'harness_sto'
+    # -- clickhouse connection name for CCM, must match model connection name
+    clickhouseConnectionName: smp-clickhouse
+    # -- clickhouse hostname
+    clickhouseHost:
+    # -- clickhouse port
+    clickhousePort: ''
+    # -- clickhouse database name
+    clickhouseDatabase:
+    # -- clickhouse user
+    clickhouseUser: looker
     # -- name of the looker project which will be created
     projectName: 'Harness'
 
@@ -183,11 +191,11 @@ looker:
       # -- name of secret containing the timescale password
       key: timescaledbPostgresPassword
 
-  redshiftSecrets:
+  clickhouseSecrets:
     password:
-      name: harness-looker-secrets
-      # -- name of secret containing the redshift password
-      key: redshiftPassword
+      name: looker-secrets
+      # -- name of secret containing the clickhouse password
+      key: clickhousePassword
 
   ingress:
     # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
@@ -219,7 +227,7 @@ looker:
     repository: harness/looker-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "22.18.18.0"
+    tag: "23.0.40"
     digest: ""
     imagePullSecrets: []
 

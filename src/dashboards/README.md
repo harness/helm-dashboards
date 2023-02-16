@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.2.5
+      version: 0.3.1
 ```
 
 ## Publishing the Chart
@@ -24,24 +24,35 @@ Before merging to main please remember to manually update the version.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.airgap | string | `"false"` |  |
+| global.ha | bool | `false` |  |
 | global.imagePullSecrets | list | `[]` |  |
 | global.ingress.className | string | `""` |  |
 | global.ingress.enabled | bool | `false` |  |
 | global.ingress.hosts | list | `[]` |  |
 | global.ingress.tls.enabled | bool | `false` |  |
 | global.ingress.tls.secretName | string | `""` |  |
+| global.istio.enabled | bool | `false` |  |
+| global.istio.gateway.create | bool | `false` |  |
+| global.istio.virtualService.gateways | string | `nil` |  |
+| global.istio.virtualService.hosts | string | `nil` |  |
 | global.loadbalancerURL | string | `""` |  |
 | looker.affinity | object | `{}` |  |
+| looker.clickhouseSecrets.password.key | string | `"clickhousePassword"` | name of secret containing the clickhouse password |
+| looker.clickhouseSecrets.password.name | string | `"looker-secrets"` |  |
+| looker.config.clickhouseConnectionName | string | `"smp-clickhouse"` | clickhouse connection name for CCM, must match model connection name |
+| looker.config.clickhouseDatabase | string | `nil` | clickhouse database name |
+| looker.config.clickhouseHost | string | `nil` | clickhouse hostname |
+| looker.config.clickhousePort | string | `""` | clickhouse port |
+| looker.config.clickhouseUser | string | `"looker"` | clickhouse user |
 | looker.config.email | string | `"harnessSupport@harness.io"` | email address of the support user, required for initial signup and support |
+| looker.config.ffConnectionName | string | `"smp-timescale-cf"` | timescale connection name for feature flags, must match model connection name |
+| looker.config.ffDatabase | string | `"harness_ff"` | timescale database name for feature flags |
 | looker.config.firstName | string | `"Harness"` | name of the user who performs setup and support tasks |
 | looker.config.lastName | string | `"Support"` | last name of the user who performs setup and support tasks |
 | looker.config.projectName | string | `"Harness"` | name of the looker project which will be created |
-| looker.config.redshiftConnectionName | string | `"redshift-ccm"` | redshift connection name, must match model connection name |
-| looker.config.redshiftDatabase | string | `nil` | redshift database name |
-| looker.config.redshiftHost | string | `nil` | redshift hostname |
-| looker.config.redshiftPort | string | `"5439"` | redshift port |
-| looker.config.redshiftUser | string | `"looker"` | redshift user |
-| looker.config.timescaleConnectionName | string | `"timescale"` | timescale connection name, must match model connection name |
+| looker.config.stoConnectionName | string | `"smp-postgres"` | postgres connection name for STO, must match model connection name |
+| looker.config.stoDatabase | string | `"harness_sto"` | postgres database name for STO |
+| looker.config.timescaleConnectionName | string | `"smp-timescale"` | timescale connection name, must match model connection name |
 | looker.config.timescaleDatabase | string | `"harness"` | timescale database name |
 | looker.config.timescaleHost | string | `"timescaledb-single-chart.harness"` | timescale hostname |
 | looker.config.timescalePort | string | `"5432"` | timescale port |
@@ -52,7 +63,7 @@ Before merging to main please remember to manually update the version.
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
-| looker.image.tag | string | `"22.18.18.0"` |  |
+| looker.image.tag | string | `"23.0.40"` |  |
 | looker.ingress.host | string | `""` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | looker.ingress.tls.secretName | string | `""` |  |
 | looker.lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
@@ -60,12 +71,15 @@ Before merging to main please remember to manually update the version.
 | looker.lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` | name of secret containing the client secret used for API authentication, generate a 24-byte key, e.g. openssl rand -hex 12 |
 | looker.lookerSecrets.clientSecret.name | string | `"harness-looker-secrets"` |  |
 | looker.lookerSecrets.licenseKey.key | string | `"lookerLicenseKey"` | name of secret containing the looker license key which will be provided by Harness |
-| looker.lookerSecrets.licenseKey.name | string | `"harness-secrets"` |  |
+| looker.lookerSecrets.licenseKey.name | string | `"looker-secrets"` |  |
 | looker.lookerSecrets.masterKey.key | string | `"lookerMasterKey"` | name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32 |
-| looker.lookerSecrets.masterKey.name | string | `"harness-secrets"` |  |
+| looker.lookerSecrets.masterKey.name | string | `"looker-secrets"` |  |
 | looker.maxSurge | int | `1` |  |
 | looker.maxUnavailable | int | `0` |  |
 | looker.modelsDirectory | string | `"/mnt/lookerfiles"` | directory where Looker models volume will be mounted |
+| looker.mysql.database | string | `"looker"` |  |
+| looker.mysql.port | string | `"3306"` |  |
+| looker.mysql.user | string | `"looker"` |  |
 | looker.nameOverride | string | `""` |  |
 | looker.nodeSelector | object | `{}` |  |
 | looker.persistentVolume.accessMode | string | `"ReadWriteOnce"` |  |
@@ -73,8 +87,6 @@ Before merging to main please remember to manually update the version.
 | looker.persistentVolume.storage.models | string | `"2Gi"` | size of volume where Looker stores model files |
 | looker.podAnnotations | object | `{}` |  |
 | looker.podSecurityContext | object | `{}` |  |
-| looker.redshiftSecrets.password.key | string | `"redshiftPassword"` | name of secret containing the redshift password |
-| looker.redshiftSecrets.password.name | string | `"harness-secrets"` |  |
 | looker.resources.limits.cpu | int | `4` |  |
 | looker.resources.limits.memory | string | `"8192Mi"` |  |
 | looker.resources.requests.cpu | int | `2` |  |

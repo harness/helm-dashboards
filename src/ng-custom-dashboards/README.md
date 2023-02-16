@@ -1,6 +1,6 @@
 # ng-custom-dashboards
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.52.24](https://img.shields.io/badge/AppVersion-v1.52.24-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.52.24](https://img.shields.io/badge/AppVersion-v1.52.24-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -41,6 +41,10 @@ A Helm chart for Kubernetes
 | global.ingress.hosts | list | `[]` |  |
 | global.ingress.tls.enabled | bool | `false` |  |
 | global.ingress.tls.secretName | string | `""` |  |
+| global.istio.enabled | bool | `false` |  |
+| global.istio.gateway.create | bool | `false` |  |
+| global.istio.virtualService.gateways | string | `nil` |  |
+| global.istio.virtualService.hosts | string | `nil` |  |
 | global.loadbalancerURL | string | `""` |  |
 | image.digest | string | `""` |  |
 | image.imagePullSecrets | list | `[]` |  |
