@@ -15,11 +15,18 @@ data:
   TIMESCALE_PORT: '{{ .Values.config.timescalePort }}'
   TIMESCALE_DATABASE: '{{ .Values.config.timescaleDatabase }}'
   TIMESCALE_USER: '{{ .Values.config.timescaleUser }}'
-  REDSHIFT_CONNECTION_NAME: {{ .Values.config.redshiftConnectionName }}
-  REDSHIFT_HOST: {{ .Values.config.redshiftHost }}
-  REDSHIFT_PORT: {{ .Values.config.redshiftPort | quote }}
-  REDSHIFT_DATABASE: {{ .Values.config.redshiftDatabase }}
-  REDSHIFT_USER: {{ .Values.config.redshiftUser }}
+  TIMESCALE_CONNECTION_NAME_FF: '{{ .Values.config.ffConnectionName }}'
+  TIMESCALE_DATABASE_FF: '{{ .Values.config.ffDatabase }}'
+  POSTGRES_CONNECTION_NAME: '{{ .Values.config.stoConnectionName }}'
+  POSTGRES_HOST: '{{ .Values.config.timescaleHost }}'
+  POSTGRES_PORT: '{{ .Values.config.timescalePort }}'
+  POSTGRES_DATABASE: '{{ .Values.config.stoDatabase }}'
+  POSTGRES_USER: '{{ .Values.config.timescaleUser }}'
+  CLICKHOUSE_CONNECTION_NAME: {{ .Values.config.clickhouseConnectionName }}
+  CLICKHOUSE_HOST: {{ .Values.config.clickhouseHost }}
+  CLICKHOUSE_PORT: {{ .Values.config.clickhousePort | quote }}
+  CLICKHOUSE_DATABASE: {{ .Values.config.clickhouseDatabase }}
+  CLICKHOUSE_USER: {{ .Values.config.clickhouseUser }}
   PROJECT_NAME: '{{ .Values.config.projectName }}'
   DOMAIN_WHITELIST: {{ .Values.global.loadbalancerURL }}
   MODELS_DIR: {{ .Values.modelsDirectory }}

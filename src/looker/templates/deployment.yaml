@@ -91,11 +91,16 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.timescaleSecrets.password.name }}
                   key: {{ .Values.timescaleSecrets.password.key }}
-            - name: REDSHIFT_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.redshiftSecrets.password.name }}
-                  key: {{ .Values.redshiftSecrets.password.key }}
+                  name: {{ .Values.timescaleSecrets.password.name }}
+                  key: {{ .Values.timescaleSecrets.password.key }}
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.clickhouseSecrets.password.name }}
+                  key: {{ .Values.clickhouseSecrets.password.key }}
             {{- if .Values.global.ha }}
             - name: LOOKER_MYSQL_PASSWORD
               valueFrom:

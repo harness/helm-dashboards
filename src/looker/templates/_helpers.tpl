@@ -72,7 +72,7 @@ Create the name of the service account to use
 {{- define "looker.generateLookerSecrets" }}
     lookerLicenseKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerLicenseKey") "length" 32 "context" $) }}
     lookerMasterKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerMasterKey") "length" 32 "context" $) }}
-    redshiftPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "redshiftPassword" "providedValues" (list "secrets.redshiftPassword") "length" 16 "context" $) }}
+    clickhousePassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "redshiftPassword" "providedValues" (list "secrets.redshiftPassword") "length" 16 "context" $) }}
 {{- end }}
 
 {{- define "looker.generateLookerSecrets2" }}
