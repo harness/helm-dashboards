@@ -69,13 +69,13 @@ Create the name of the service account to use
 {{ include "common.images.pullSecrets" (dict "images" (list .Values.image.mysql ) "global" .Values.global ) }}
 {{- end -}}
 
-{{- define "looker.generateLookerSecrets" }}
+{{- define "looker.generateLookerInternalSecrets" }}
     lookerLicenseKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerLicenseKey") "length" 32 "context" $) }}
     lookerMasterKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerMasterKey") "length" 32 "context" $) }}
     clickhousePassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "clickhousePassword" "providedValues" (list "secrets.clickhousePassword") "length" 16 "context" $) }}
 {{- end }}
 
-{{- define "looker.generateLookerSecrets2" }}
+{{- define "looker.generateLookerSecrets" }}
     lookerClientId: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerClientId" "providedValues" (list "secrets.lookerClientId") "length" 20 "context" $) }}
     lookerClientSecret: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerClientSecret" "providedValues" (list "secrets.lookerClientSecret") "length" 24 "context" $) }}
     lookerEmbedSecret: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "harness-looker-secrets" "key" "lookerEmbedSecret" "providedValues" (list "secrets.lookerEmbedSecret") "length" 16 "context" $) }}
