@@ -37,17 +37,17 @@ Common labels
 helm.sh/chart: {{ include "looker.chart" . }}
 {{ include "looker.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
-looker.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-looker.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "looker.selectorLabels" -}}
-looker.kubernetes.io/name: {{ include "looker.name" . }}
-looker.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: {{ include "looker.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
