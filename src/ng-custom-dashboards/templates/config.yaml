@@ -27,6 +27,6 @@ data:
   {{- if .Values.config.redisSentinelUrls }}
   REDIS_SENTINEL_URLS: '{{ .Values.config.redisSentinelUrls }}'
   {{- else }}
-  REDIS_SENTINEL_URLS: 'redis://redis-sentinel-harness-announce-0.{{  .Release.Namespace }}:26379,redis://redis-sentinel-harness-announce-1.{{ .Release.Namespace }}:26379,redis://redis-sentinel-harness-announce-2.{{ .Release.Namespace }}:26379'
+  REDIS_SENTINEL_URLS: 'redis-sentinel-harness-announce-0.{{  .Release.Namespace }}:26379,redis-sentinel-harness-announce-1.{{ .Release.Namespace }}:26379,redis-sentinel-harness-announce-2.{{ .Release.Namespace }}:26379'
   {{- end }}
   REDIS_SENTINEL_MASTER_NAME: '{{ .Values.config.redisSentinelMasterName }}'
