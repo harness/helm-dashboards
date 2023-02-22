@@ -26,6 +26,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        {{- include "ng-dashboards.selectorLabels" . | nindent 6 }}
     spec:
       {{ include "ng-dashboards.pullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "ng-dashboards.serviceAccountName" . }}
