@@ -63,7 +63,7 @@ spec:
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
-            claimName: {{ include "looker.name" . }}-mysql
+            claimName: looker-mysql
         - name: mysql-startup
           configMap:
             defaultMode: 400
