@@ -204,13 +204,9 @@ looker:
 
   ingress:
     # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
-    host: ''
+    hosts: []
     tls:
       secretName: ''
-
-  istio:
-    # -- Required if istio is enabled, Looker requires a separate DNS domain name to function
-    host: 'ccm-istio.test.harness.io'
 
   persistentVolume:
     accessMode: ReadWriteOnce

@@ -123,10 +123,10 @@ spec:
             httpGet:
               path: /alive
               port: looker-api
-            initialDelaySeconds: 60
+            initialDelaySeconds: 600
             timeoutSeconds: 5
             periodSeconds: 10
-            failureThreshold: 40
+            failureThreshold: 12
           volumeMounts:
             - name: looker-startup
               mountPath: /home/looker/looker/lookerstart.cfg

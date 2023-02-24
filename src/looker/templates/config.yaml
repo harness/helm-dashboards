@@ -7,9 +7,9 @@ metadata:
     {{- include "looker.labels" . | nindent 4 }}
 data:
   {{- if .Values.global.ingress.enabled }}
-  HOST_URL: '{{ ternary "https" "http" .Values.global.ingress.tls.enabled }}://{{ .Values.ingress.host }}'
+  HOST_URL: '{{ ternary "https" "http" .Values.global.ingress.tls.enabled }}://{{ first .Values.ingress.hosts }}'
   {{ else if .Values.global.istio.enabled }}
-  HOST_URL: '{{ ternary "https" "http" (not (empty .Values.global.istio.tls)) }}://{{ .Values.istio.host }}'
+  HOST_URL: '{{ ternary "https" "http" (not (empty .Values.global.istio.tls)) }}://{{ first .Values.istio.hosts }}'
   {{- end}}
   FIRST_NAME: '{{ .Values.config.firstName }}'
   LAST_NAME: '{{ .Values.config.lastName }}'

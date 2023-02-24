@@ -87,15 +87,9 @@ clickhouseSecrets:
 
 ingress:
   # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
-  host: ''
+  hosts: []
   tls:
     secretName: ''
-
-istio:
-  # -- Required if istio is enabled, Looker requires a separate DNS domain name to function
-  host: ''
-  tls:
-    credentialName: ''
 
 persistentVolume:
   accessMode: ReadWriteOnce
@@ -150,7 +144,7 @@ istio:
   virtualService:
     # enable to set specific looker host
     enabled: false
-    # specify the hostname for looker
+    # -- Required if istio is enabled, Looker requires a separate DNS domain name to function
     hosts:
     - 'myhostname.example.com'
 
