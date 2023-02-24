@@ -9,7 +9,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   gateways:
-    {{- if .Values.global.istio.gateway.create }}
+    {{- if .Values.istio.gateway.create }}
+    - istio-system/looker
+    {{- else if .Values.global.istio.gateway.create }}
     - istio-system/public
     {{- else }}
     {{- range .Values.global.istio.virtualService.gateways }}
@@ -17,8 +19,14 @@ spec:
     {{- end }}
     {{- end }}
   hosts:
+    {{- if .Values.istio.virtualService.enabled }}
+    {{- range .Values.istio.virtualService.hosts }}
+    - {{ . }}
+    {{- end }}
+    {{- else }}
     {{- range .Values.global.istio.virtualService.hosts }}
     - {{ . }}
+    {{- end }}
     {{- end }}
   http:
   - name: looker-web

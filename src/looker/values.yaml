@@ -116,12 +116,37 @@ global:
     enabled: false
     gateway:
       create: false
+    hosts:
+      - '*'
     virtualService:
+      # Unused if gateway.create is enabled
       gateways:
+        - "someGateway"
       hosts:
+        - "myhostname.example.com"
   imagePullSecrets: []
 maxSurge: 1
 maxUnavailable: 0
+
+# looker overrides for istio, if different host and gateway is used is given
+istio:
+  gateway:
+    # enable to create looker gateway
+    create: false
+    port: 443
+    protocol: HTTPS
+  hosts:
+      - '*'
+  tls:
+    credentialName: harness-cert
+    minProtocolVersion: TLSV1_2
+    mode: SIMPLE
+  virtualService:
+    # enable to set specific looker host
+    enabled: false
+    # specify the hostname for looker
+    hosts:
+    - 'myhostname.example.com'
 
 image:
   registry: docker.io
