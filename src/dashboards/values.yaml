@@ -29,16 +29,17 @@ ng-custom-dashboards:
     repository: harness/dashboard-service-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.52.24"
+    tag: "v1.53.0"
     digest: ""
     imagePullSecrets: []
+
   config:
     # -- scheme used for your looker install, http or https
-    lookerScheme: 'https'
+    lookerScheme: 'http'
     # -- hostname of your looker install
-    lookerHost: ''
+    lookerHost: 'hrns-looker-api'
     # -- port of your looker install
-    lookerPort: '443'
+    lookerPort: '19999'
     # -- folder ID of the 'CUSTOMER' folder in looker
     customerFolderId: '6'
     # -- folder ID of the 'OOTB' folder in looker
@@ -61,6 +62,10 @@ ng-custom-dashboards:
     lookerTimeout: '120'
     # -- looker sdk param
     lookerVerifySsl: 'false'
+    # -- time in seconds between cache reloads
+    cacheReloadFrequency: '600'
+    # -- time in seconds before cache reload locks are automatically released
+    redisLockTimeout: '570'
 
   lookerSecrets:
     clientId:
@@ -157,13 +162,13 @@ looker:
     # -- clickhouse connection name for CCM, must match model connection name
     clickhouseConnectionName: smp-clickhouse
     # -- clickhouse hostname
-    clickhouseHost:
+    clickhouseHost: 'clickhouse'
     # -- clickhouse port
-    clickhousePort: ''
+    clickhousePort: '8123'
     # -- clickhouse database name
-    clickhouseDatabase:
+    clickhouseDatabase: 'ccm'
     # -- clickhouse user
-    clickhouseUser: looker
+    clickhouseUser: 'default'
     # -- name of the looker project which will be created
     projectName: 'Harness'
 
@@ -193,9 +198,9 @@ looker:
 
   clickhouseSecrets:
     password:
-      name: looker-secrets
+      name: clickhouse
       # -- name of secret containing the clickhouse password
-      key: clickhousePassword
+      key: admin-password
 
   ingress:
     # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
@@ -203,13 +208,17 @@ looker:
     tls:
       secretName: ''
 
+  istio:
+    # -- Required if istio is enabled, Looker requires a separate DNS domain name to function
+    host: 'ccm-istio.test.harness.io'
+
   persistentVolume:
     accessMode: ReadWriteOnce
     storage:
       # -- size of volume where Looker stores model files
       models: 2Gi
       # -- size of volume where Looker stores database
-      database: 2Gi
+      database: 20Gi
 
   # -- directory where Looker models volume will be mounted
   modelsDirectory: /mnt/lookerfiles
@@ -227,9 +236,13 @@ looker:
     repository: harness/looker-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "23.0.40"
+    tag: "23.2.24.1"
     digest: ""
     imagePullSecrets: []
+
+  secrets:
+    # -- Required: Looker license key
+    lookerLicenseKey: ""
 
   nameOverride: ""
   fullnameOverride: ""
@@ -267,6 +280,7 @@ looker:
   resources:
     limits:
       cpu: 4
+      # -- minimum of 6GiB recommended
       memory: 8192Mi
     requests:
       cpu: 2

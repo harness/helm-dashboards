@@ -70,9 +70,8 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "looker.generateLookerInternalSecrets" }}
-    lookerLicenseKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerLicenseKey") "length" 32 "context" $) }}
-    lookerMasterKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerMasterKey") "length" 32 "context" $) }}
-    clickhousePassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "clickhousePassword" "providedValues" (list "secrets.clickhousePassword") "length" 16 "context" $) }}
+    lookerLicenseKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerLicenseKey" "providedValues" (list "secrets.lookerLicenseKey") "length" 32 "context" $) }}
+    lookerMasterKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerMasterKey") "length" 32 "context" $) | trimAll "\"" | b64enc }}
 {{- end }}
 
 {{- define "looker.generateLookerSecrets" }}
@@ -83,6 +82,6 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "looker.generateMysqlSecrets" }}
-    lookerMySqlRootPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-mysql-secrets" "key" "lookerMySqlRootPassword" "providedValues" (list "secrets.lookerMySqlRootPassword") "length" 8 "context" $) }}
-    lookerMySqlUserPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-mysql-secrets" "key" "lookerMySqlUserPassword" "providedValues" (list "secrets.lookerMySqlUserPassword") "length" 8 "context" $) }}
+    lookerMySqlRootPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-mysql-secrets" "key" "lookerMySqlRootPassword" "providedValues" (list "secrets.lookerMySqlRootPassword") "length" 24 "context" $) }}
+    lookerMySqlUserPassword: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-mysql-secrets" "key" "lookerMySqlUserPassword" "providedValues" (list "secrets.lookerMySqlUserPassword") "length" 24 "context" $) }}
 {{- end }}

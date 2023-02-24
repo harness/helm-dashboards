@@ -29,13 +29,13 @@ config:
   # -- clickhouse connection name for CCM, must match model connection name
   clickhouseConnectionName: smp-clickhouse
   # -- clickhouse hostname
-  clickhouseHost:
+  clickhouseHost: 'clickhouse'
   # -- clickhouse port
-  clickhousePort: ''
+  clickhousePort: '8123'
   # -- clickhouse database name
-  clickhouseDatabase:
+  clickhouseDatabase: 'ccm'
   # -- clickhouse user
-  clickhouseUser: looker
+  clickhouseUser: 'default'
   # -- name of the looker project which will be created
   projectName: 'Harness'
 
@@ -81,9 +81,9 @@ timescaleSecrets:
 
 clickhouseSecrets:
   password:
-    name: looker-secrets
+    name: clickhouse
     # -- name of secret containing the clickhouse password
-    key: clickhousePassword
+    key: admin-password
 
 ingress:
   # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
@@ -91,13 +91,19 @@ ingress:
   tls:
     secretName: ''
 
+istio:
+  # -- Required if istio is enabled, Looker requires a separate DNS domain name to function
+  host: ''
+  tls:
+    credentialName: ''
+
 persistentVolume:
   accessMode: ReadWriteOnce
   storage:
     # -- size of volume where Looker stores model files
     models: 2Gi
     # -- size of volume where Looker stores database
-    database: 2Gi
+    database: 20Gi
 
 # -- directory where Looker models volume will be mounted
 modelsDirectory: /mnt/lookerfiles
@@ -153,7 +159,7 @@ image:
   repository: harness/looker-signed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "23.0.40"
+  tag: "23.2.24.1"
   digest: ""
   imagePullSecrets: []
 
@@ -164,9 +170,9 @@ image:
     imagePullSecrets: []
 
 secrets:
+  # -- Required: Looker license key
   lookerLicenseKey: "ZW52U3BlY2lmaWM="
   lookerMasterKey: ""
-  clickhousePassword: ""
   lookerClientId: ""
   lookerClientSecret: ""
   lookerEmbedSecret: ""
@@ -219,6 +225,7 @@ service:
 resources:
   limits:
     cpu: 4
+    # -- minimum of 6GiB recommended
     memory: 8192Mi
   requests:
     cpu: 2

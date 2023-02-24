@@ -7,22 +7,27 @@ metadata:
     {{- include "ng-dashboards.labels" . | nindent 4 }}
 data:
   AUTH_CLIENT_ID: CustomDashboards
-  BASE_URL: '{{ .Values.global.loadbalancerURL }}'
-  HOST: '{{ .Values.config.lookerHost }}'
-  LOOKERSDK_API_VERSION: '{{ .Values.config.lookerApiVersion }}'
-  LOOKERSDK_TIMEOUT: '{{ .Values.config.lookerTimeout }}'
-  LOOKERSDK_VERIFY_SSL: '{{ .Values.config.lookerVerifySsl }}'
-  LOOKERSDK_BASE_URL: '{{ .Values.config.lookerScheme }}://{{ .Values.config.lookerHost }}:{{ .Values.config.lookerPort }}'
-  REDIS_HOST: '{{ .Values.config.redisHost }}'
-  REDIS_PORT: '{{ .Values.config.redisPort }}'
-  OOTB_FOLDER_ID: '{{ .Values.config.ootbFolderId }}'
-  CUSTOMER_FOLDER_ID: '{{ .Values.config.customerFolderId }}'
-  MODEL_PREFIX: '{{ .Values.config.modelPrefix }}'
   AUTH_ACCESS_CONTROL_SECRET: 'IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM'
   AUTH_CCM_SECRET: 'IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM'
   AUTH_CG_MANAGER_SECRET: 'IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM'
   AUTH_NG_MANAGER_SECRET: 'IC04LYMBf1lDP5oeY4hupxd4HJhLmN6azUku3xEbeE3SUx5G3ZYzhbiwVtK4i7AmqyU9OZkwB4v8E9qM'
   AUTH_IDENTITY_SERVICE_SECRET: HVSKUYqD4e5Rxu12hFDdCJKGM64sxgEynvdDhaOHaTHhwwn0K4Ttr0uoOxSsEVYNrUU=
+  BASEURL_ACCESS_CONTROL: http://access-control:9006
+  BASEURL_CCM: http://nextgen-ce:6340
+  BASEURL_CG_MANAGER: http://harness-manager:9090
+  BASEURL_NG_MANAGER: http://ng-manager:7090
+  HOST: '{{ .Values.config.lookerHost }}'
+  LOOKERSDK_API_VERSION: '{{ .Values.config.lookerApiVersion }}'
+  LOOKERSDK_TIMEOUT: '{{ .Values.config.lookerTimeout }}'
+  LOOKERSDK_VERIFY_SSL: '{{ .Values.config.lookerVerifySsl }}'
+  LOOKERSDK_BASE_URL: '{{ .Values.config.lookerScheme }}://{{ .Values.config.lookerHost }}:{{ .Values.config.lookerPort }}'
+  CACHE_RELOAD_FREQUENCY: '{{ .Values.config.cacheReloadFrequency }}'
+  REDIS_LOCK_TIMEOUT: '{{ .Values.config.redisLockTimeout }}'
+  REDIS_HOST: '{{ .Values.config.redisHost }}'
+  REDIS_PORT: '{{ .Values.config.redisPort }}'
+  OOTB_FOLDER_ID: '{{ .Values.config.ootbFolderId }}'
+  CUSTOMER_FOLDER_ID: '{{ .Values.config.customerFolderId }}'
+  MODEL_PREFIX: '{{ .Values.config.modelPrefix }}'
   REDIS_SENTINEL: '{{ .Values.config.redisSentinel }}'
   {{- if .Values.config.redisSentinelUrls }}
   REDIS_SENTINEL_URLS: '{{ .Values.config.redisSentinelUrls }}'

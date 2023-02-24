@@ -2,7 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  loadbalancerURL: ""
   airgap: "false"
   ingress:
     enabled: false
@@ -28,17 +27,17 @@ image:
   repository: harness/dashboard-service-signed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.52.24"
+  tag: "v1.53.0"
   digest: ""
   imagePullSecrets: []
 
 config:
   # -- scheme used for your looker install, http or https
-  lookerScheme: 'https'
+  lookerScheme: 'http'
   # -- hostname of your looker install
-  lookerHost: ''
+  lookerHost: 'hrns-looker-api'
   # -- port of your looker install
-  lookerPort: '443'
+  lookerPort: '19999'
   # -- folder ID of the 'CUSTOMER' folder in looker
   customerFolderId: '6'
   # -- folder ID of the 'OOTB' folder in looker
@@ -61,6 +60,10 @@ config:
   lookerTimeout: '120'
   # -- looker sdk param
   lookerVerifySsl: 'false'
+  # -- time in seconds between cache reloads
+  cacheReloadFrequency: '600'
+  # -- time in seconds before cache reload locks are automatically released
+  redisLockTimeout: '570'
 
 lookerSecrets:
   clientId:
