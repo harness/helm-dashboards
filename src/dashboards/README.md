@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.2.5
+      version: 0.4.0
 ```
 
 ## Publishing the Chart
