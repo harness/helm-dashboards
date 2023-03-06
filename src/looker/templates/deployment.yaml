@@ -9,10 +9,7 @@ spec:
   progressDeadlineSeconds: 600
   replicas: 1
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: {{.Values.maxSurge}}
-      maxUnavailable: {{.Values.maxUnavailable}}
+    type: Recreate
   selector:
     matchLabels:
       {{- include "looker.selectorLabels" . | nindent 6 }}
@@ -24,6 +21,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        app: looker
         envoy-rewrite: looker
         podAffinity: looker-app
         {{- include "looker.selectorLabels" . | nindent 8 }}

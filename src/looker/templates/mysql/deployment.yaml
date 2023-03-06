@@ -24,6 +24,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        app: looker-mysql
         {{- include "looker.selectorLabels" . | nindent 8 }}
     spec:
       {{ include "looker-mysql.pullSecrets" . | nindent 6 }}

@@ -26,6 +26,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        app: dashboard
         {{- include "ng-dashboards.selectorLabels" . | nindent 8 }}
     spec:
       {{ include "ng-dashboards.pullSecrets" . | nindent 6 }}
