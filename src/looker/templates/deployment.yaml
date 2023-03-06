@@ -24,6 +24,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        envoy-rewrite: looker
         podAffinity: looker-app
         {{- include "looker.selectorLabels" . | nindent 8 }}
     spec:

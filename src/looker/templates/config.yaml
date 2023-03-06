@@ -9,7 +9,7 @@ data:
   {{- if .Values.global.ingress.enabled }}
   HOST_URL: '{{ ternary "https" "http" .Values.global.ingress.tls.enabled }}://{{ first .Values.ingress.hosts }}'
   {{ else if .Values.global.istio.enabled }}
-  HOST_URL: '{{ ternary "https" "http" (not (empty .Values.global.istio.tls)) }}://{{ first .Values.istio.hosts }}'
+  HOST_URL: '{{ ternary "https" "http" (not (empty .Values.global.istio.tls)) }}://{{ first .Values.istio.virtualService.hosts }}'
   {{- end}}
   FIRST_NAME: '{{ .Values.config.firstName }}'
   LAST_NAME: '{{ .Values.config.lastName }}'
@@ -35,7 +35,7 @@ data:
   DOMAIN_WHITELIST: {{ .Values.global.loadbalancerURL }}
   MODELS_DIR: {{ .Values.modelsDirectory }}
   {{- if .Values.global.ha }}
-  LOOKER_MYSQL_HOST: looker-mysql.{{ .Release.Namespace }}.svc.cluster.local
+  LOOKER_MYSQL_HOST: {{ .Values.mysql.host }}
   LOOKER_MYSQL_USERNAME: {{ .Values.mysql.user }}
   LOOKER_MYSQL_DATABASE: {{ .Values.mysql.database }}
   LOOKER_MYSQL_PORT: {{ .Values.mysql.port | quote }}

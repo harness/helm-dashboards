@@ -16,7 +16,8 @@ data:
   BASEURL_CCM: http://nextgen-ce:6340
   BASEURL_CG_MANAGER: http://harness-manager:9090
   BASEURL_NG_MANAGER: http://ng-manager:7090
-  HOST: '{{ .Values.config.lookerHost }}'
+  LOOKER_PUB_DOMAIN: {{.Values.config.lookerPubDomain}}
+  LOOKER_PUB_SCHEME: {{.Values.config.lookerPubScheme}}
   LOOKERSDK_API_VERSION: '{{ .Values.config.lookerApiVersion }}'
   LOOKERSDK_TIMEOUT: '{{ .Values.config.lookerTimeout }}'
   LOOKERSDK_VERIFY_SSL: '{{ .Values.config.lookerVerifySsl }}'
