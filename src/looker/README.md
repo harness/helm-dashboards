@@ -1,6 +1,6 @@
 # looker
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 22.18.18.0](https://img.shields.io/badge/AppVersion-22.18.18.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.2.31](https://img.shields.io/badge/AppVersion-23.2.31-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -15,13 +15,13 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| clickhouseSecrets.password.key | string | `"clickhousePassword"` | name of secret containing the clickhouse password |
-| clickhouseSecrets.password.name | string | `"looker-secrets"` |  |
+| clickhouseSecrets.password.key | string | `"admin-password"` | name of secret containing the clickhouse password |
+| clickhouseSecrets.password.name | string | `"clickhouse"` |  |
 | config.clickhouseConnectionName | string | `"smp-clickhouse"` | clickhouse connection name for CCM, must match model connection name |
-| config.clickhouseDatabase | string | `nil` | clickhouse database name |
-| config.clickhouseHost | string | `nil` | clickhouse hostname |
-| config.clickhousePort | string | `""` | clickhouse port |
-| config.clickhouseUser | string | `"looker"` | clickhouse user |
+| config.clickhouseDatabase | string | `"ccm"` | clickhouse database name |
+| config.clickhouseHost | string | `"clickhouse"` | clickhouse hostname |
+| config.clickhousePort | string | `"8123"` | clickhouse port |
+| config.clickhouseUser | string | `"default"` | clickhouse user |
 | config.email | string | `"harnessSupport@harness.io"` | email address of the support user, required for initial signup and support |
 | config.ffConnectionName | string | `"smp-timescale-cf"` | timescale connection name for feature flags, must match model connection name |
 | config.ffDatabase | string | `"harness_ff"` | timescale database name for feature flags |
@@ -44,8 +44,9 @@ A Helm chart for Kubernetes
 | global.ingress.tls.enabled | bool | `false` |  |
 | global.istio.enabled | bool | `false` |  |
 | global.istio.gateway.create | bool | `false` |  |
-| global.istio.virtualService.gateways | string | `nil` |  |
-| global.istio.virtualService.hosts | string | `nil` |  |
+| global.istio.hosts[0] | string | `"*"` |  |
+| global.istio.virtualService.gateways[0] | string | `"someGateway"` |  |
+| global.istio.virtualService.hosts[0] | string | `"myhostname.example.com"` |  |
 | global.loadbalancerURL | string | `""` |  |
 | global.storageClassName | string | `nil` |  |
 | image.digest | string | `""` |  |
@@ -57,9 +58,18 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/looker-signed"` |  |
-| image.tag | string | `"23.0.40"` |  |
-| ingress.host | string | `""` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
+| image.tag | string | `"23.2.31"` |  |
+| ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | ingress.tls.secretName | string | `""` |  |
+| istio.gateway.create | bool | `false` |  |
+| istio.gateway.port | int | `443` |  |
+| istio.gateway.protocol | string | `"HTTPS"` |  |
+| istio.hosts[0] | string | `"*"` |  |
+| istio.tls.credentialName | string | `"harness-cert"` |  |
+| istio.tls.minProtocolVersion | string | `"TLSV1_2"` |  |
+| istio.tls.mode | string | `"SIMPLE"` |  |
+| istio.virtualService.enabled | bool | `false` |  |
+| istio.virtualService.hosts | list | `["myhostname.example.com"]` | Required if istio is enabled, Looker requires a separate DNS domain name to function |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` | name of secret containing the client secret used for API authentication, generate a 24-byte key, e.g. openssl rand -hex 12 |
@@ -72,6 +82,7 @@ A Helm chart for Kubernetes
 | maxUnavailable | int | `0` |  |
 | modelsDirectory | string | `"/mnt/lookerfiles"` | directory where Looker models volume will be mounted |
 | mysql.database | string | `"looker"` |  |
+| mysql.host | string | `"looker-mysql"` |  |
 | mysql.port | string | `"3306"` |  |
 | mysql.user | string | `"looker"` |  |
 | mysqlSecrets.password.root.key | string | `"lookerMySqlRootPassword"` | name of secret containing the mysql root password |
@@ -81,19 +92,18 @@ A Helm chart for Kubernetes
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | persistentVolume.accessMode | string | `"ReadWriteOnce"` |  |
-| persistentVolume.storage.database | string | `"2Gi"` | size of volume where Looker stores database |
+| persistentVolume.storage.database | string | `"20Gi"` | size of volume where Looker stores database |
 | persistentVolume.storage.models | string | `"2Gi"` | size of volume where Looker stores model files |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | resources.limits.cpu | int | `4` |  |
-| resources.limits.memory | string | `"8192Mi"` |  |
+| resources.limits.memory | string | `"8192Mi"` | minimum of 6GiB recommended |
 | resources.requests.cpu | int | `2` |  |
 | resources.requests.memory | string | `"4096Mi"` |  |
-| secrets.clickhousePassword | string | `""` |  |
 | secrets.lookerClientId | string | `""` |  |
 | secrets.lookerClientSecret | string | `""` |  |
 | secrets.lookerEmbedSecret | string | `""` |  |
-| secrets.lookerLicenseKey | string | `"ZW52U3BlY2lmaWM="` |  |
+| secrets.lookerLicenseKey | string | `"ZW52U3BlY2lmaWM="` | Required: Looker license key |
 | secrets.lookerMasterKey | string | `""` |  |
 | secrets.lookerMySqlRootPassword | string | `""` |  |
 | secrets.lookerMySqlUserPassword | string | `""` |  |

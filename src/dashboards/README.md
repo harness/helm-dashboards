@@ -37,13 +37,13 @@ Before merging to main please remember to manually update the version.
 | global.istio.virtualService.hosts | string | `nil` |  |
 | global.loadbalancerURL | string | `""` |  |
 | looker.affinity | object | `{}` |  |
-| looker.clickhouseSecrets.password.key | string | `"clickhousePassword"` | name of secret containing the clickhouse password |
-| looker.clickhouseSecrets.password.name | string | `"looker-secrets"` |  |
+| looker.clickhouseSecrets.password.key | string | `"admin-password"` | name of secret containing the clickhouse password |
+| looker.clickhouseSecrets.password.name | string | `"clickhouse"` |  |
 | looker.config.clickhouseConnectionName | string | `"smp-clickhouse"` | clickhouse connection name for CCM, must match model connection name |
-| looker.config.clickhouseDatabase | string | `nil` | clickhouse database name |
-| looker.config.clickhouseHost | string | `nil` | clickhouse hostname |
-| looker.config.clickhousePort | string | `""` | clickhouse port |
-| looker.config.clickhouseUser | string | `"looker"` | clickhouse user |
+| looker.config.clickhouseDatabase | string | `"ccm"` | clickhouse database name |
+| looker.config.clickhouseHost | string | `"clickhouse"` | clickhouse hostname |
+| looker.config.clickhousePort | string | `"8123"` | clickhouse port |
+| looker.config.clickhouseUser | string | `"default"` | clickhouse user |
 | looker.config.email | string | `"harnessSupport@harness.io"` | email address of the support user, required for initial signup and support |
 | looker.config.ffConnectionName | string | `"smp-timescale-cf"` | timescale connection name for feature flags, must match model connection name |
 | looker.config.ffDatabase | string | `"harness_ff"` | timescale database name for feature flags |
@@ -63,8 +63,8 @@ Before merging to main please remember to manually update the version.
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
-| looker.image.tag | string | `"23.0.40"` |  |
-| looker.ingress.host | string | `""` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
+| looker.image.tag | string | `"23.2.31"` |  |
+| looker.ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | looker.ingress.tls.secretName | string | `""` |  |
 | looker.lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | looker.lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
@@ -83,14 +83,15 @@ Before merging to main please remember to manually update the version.
 | looker.nameOverride | string | `""` |  |
 | looker.nodeSelector | object | `{}` |  |
 | looker.persistentVolume.accessMode | string | `"ReadWriteOnce"` |  |
-| looker.persistentVolume.storage.database | string | `"2Gi"` | size of volume where Looker stores database |
+| looker.persistentVolume.storage.database | string | `"20Gi"` | size of volume where Looker stores database |
 | looker.persistentVolume.storage.models | string | `"2Gi"` | size of volume where Looker stores model files |
 | looker.podAnnotations | object | `{}` |  |
 | looker.podSecurityContext | object | `{}` |  |
 | looker.resources.limits.cpu | int | `4` |  |
-| looker.resources.limits.memory | string | `"8192Mi"` |  |
+| looker.resources.limits.memory | string | `"8192Mi"` | minimum of 6GiB recommended |
 | looker.resources.requests.cpu | int | `2` |  |
 | looker.resources.requests.memory | string | `"4096Mi"` |  |
+| looker.secrets.lookerLicenseKey | string | `""` | Required: Looker license key |
 | looker.securityContext.runAsNonRoot | bool | `true` |  |
 | looker.securityContext.runAsUser | int | `1001` |  |
 | looker.service.port.api | int | `19999` |  |
@@ -107,16 +108,20 @@ Before merging to main please remember to manually update the version.
 | ng-custom-dashboards.autoscaling.maxReplicas | int | `100` |  |
 | ng-custom-dashboards.autoscaling.minReplicas | int | `1` |  |
 | ng-custom-dashboards.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| ng-custom-dashboards.config.cacheReloadFrequency | string | `"600"` | time in seconds between cache reloads |
 | ng-custom-dashboards.config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |
 | ng-custom-dashboards.config.lookerApiVersion | string | `"4.0"` | looker sdk param |
-| ng-custom-dashboards.config.lookerHost | string | `""` | hostname of your looker install |
-| ng-custom-dashboards.config.lookerPort | string | `"443"` | port of your looker install |
-| ng-custom-dashboards.config.lookerScheme | string | `"https"` | scheme used for your looker install, http or https |
+| ng-custom-dashboards.config.lookerHost | string | `"hrns-looker-api"` | hostname of your looker install |
+| ng-custom-dashboards.config.lookerPort | string | `"19999"` | port of your looker install |
+| ng-custom-dashboards.config.lookerPubDomain | string | `""` | Required: domain name of your looker instance, this must be accessible by users in your organisation |
+| ng-custom-dashboards.config.lookerPubScheme | string | `"https"` | Required: HTTP scheme used, either http or https |
+| ng-custom-dashboards.config.lookerScheme | string | `"http"` | scheme used for your looker install, http or https |
 | ng-custom-dashboards.config.lookerTimeout | string | `"120"` | looker sdk param |
 | ng-custom-dashboards.config.lookerVerifySsl | string | `"false"` | looker sdk param |
-| ng-custom-dashboards.config.modelPrefix | string | `""` | if you have configured Looker models with a prefix enter it here |
+| ng-custom-dashboards.config.modelPrefix | string | `"SMP_"` | if you have configured Looker models with a prefix enter it here |
 | ng-custom-dashboards.config.ootbFolderId | string | `"7"` | folder ID of the 'OOTB' folder in looker |
 | ng-custom-dashboards.config.redisHost | string | `"harness-redis-master"` | hostname of your redis install |
+| ng-custom-dashboards.config.redisLockTimeout | string | `"570"` | time in seconds before cache reload locks are automatically released |
 | ng-custom-dashboards.config.redisPort | string | `"6379"` | port of your redis install |
 | ng-custom-dashboards.config.redisSentinel | string | `"true"` | used to enable Redis Sentinel support |
 | ng-custom-dashboards.config.redisSentinelMasterName | string | `"harness-redis"` | name of the Redis Sentinel master |
@@ -127,7 +132,7 @@ Before merging to main please remember to manually update the version.
 | ng-custom-dashboards.image.pullPolicy | string | `"IfNotPresent"` |  |
 | ng-custom-dashboards.image.registry | string | `"docker.io"` |  |
 | ng-custom-dashboards.image.repository | string | `"harness/dashboard-service-signed"` |  |
-| ng-custom-dashboards.image.tag | string | `"v1.52.24"` |  |
+| ng-custom-dashboards.image.tag | string | `"v1.53.0.0"` |  |
 | ng-custom-dashboards.lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | ng-custom-dashboards.lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | ng-custom-dashboards.lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` |  |
