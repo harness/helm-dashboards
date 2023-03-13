@@ -61,6 +61,23 @@ entries:
   ngcustomdashboard:
   - apiVersion: v2
     appVersion: 1.0.76620
+    created: "2023-03-13T18:40:42.771230517Z"
+    dependencies:
+    - name: ng-custom-dashboards
+      repository: file://../ng-custom-dashboards
+      version: 0.3.x
+    - name: looker
+      repository: file://../looker
+      version: 0.3.x
+    description: A Helm chart for custom dashboards
+    digest: f9cff54b567c64e72793f87d74c5110deecf048421d771e75656b77a16f62cf4
+    name: ngcustomdashboard
+    type: application
+    urls:
+    - https://github.com/harness/helm-dashboards/releases/download/ngcustomdashboard-0.4.0/ngcustomdashboard-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 1.0.76620
     created: "2023-03-13T10:40:38.387433292Z"
     dependencies:
     - name: ng-custom-dashboards
@@ -178,4 +195,4 @@ entries:
     urls:
     - https://github.com/harness/helm-dashboards/releases/download/ngcustomdashboard-0.2.0/ngcustomdashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-13T10:40:38.387470492Z"
+generated: "2023-03-13T18:40:42.771271118Z"
