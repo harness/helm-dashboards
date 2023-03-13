@@ -1,6 +1,6 @@
 # ng-custom-dashboards
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.52.24](https://img.shields.io/badge/AppVersion-v1.52.24-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.53.0.0](https://img.shields.io/badge/AppVersion-v1.53.0.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -19,16 +19,20 @@ A Helm chart for Kubernetes
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| config.cacheReloadFrequency | string | `"600"` | time in seconds between cache reloads |
 | config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |
 | config.lookerApiVersion | string | `"4.0"` | looker sdk param |
-| config.lookerHost | string | `""` | hostname of your looker install |
-| config.lookerPort | string | `"443"` | port of your looker install |
-| config.lookerScheme | string | `"https"` | scheme used for your looker install, http or https |
+| config.lookerHost | string | `"hrns-looker-api"` | hostname of your looker install |
+| config.lookerPort | string | `"19999"` | port of your looker install |
+| config.lookerPubDomain | string | `""` | Required: domain name of your looker instance, this must be accessible by users in your organisation |
+| config.lookerPubScheme | string | `"https"` | Required: HTTP scheme used, either http or https |
+| config.lookerScheme | string | `"http"` | scheme used for your looker install, http or https |
 | config.lookerTimeout | string | `"120"` | looker sdk param |
 | config.lookerVerifySsl | string | `"false"` | looker sdk param |
-| config.modelPrefix | string | `""` | if you have configured Looker models with a prefix enter it here |
+| config.modelPrefix | string | `"SMP_"` | if you have configured Looker models with a prefix enter it here |
 | config.ootbFolderId | string | `"7"` | folder ID of the 'OOTB' folder in looker |
 | config.redisHost | string | `"harness-redis-master"` | hostname of your redis install |
+| config.redisLockTimeout | string | `"570"` | time in seconds before cache reload locks are automatically released |
 | config.redisPort | string | `"6379"` | port of your redis install |
 | config.redisSentinel | string | `"true"` | used to enable Redis Sentinel support |
 | config.redisSentinelMasterName | string | `"harness-redis"` | name of the Redis Sentinel master |
@@ -41,13 +45,16 @@ A Helm chart for Kubernetes
 | global.ingress.hosts | list | `[]` |  |
 | global.ingress.tls.enabled | bool | `false` |  |
 | global.ingress.tls.secretName | string | `""` |  |
-| global.loadbalancerURL | string | `""` |  |
+| global.istio.enabled | bool | `false` |  |
+| global.istio.gateway.create | bool | `false` |  |
+| global.istio.virtualService.gateways | string | `nil` |  |
+| global.istio.virtualService.hosts | string | `nil` |  |
 | image.digest | string | `""` |  |
 | image.imagePullSecrets | list | `[]` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/dashboard-service-signed"` |  |
-| image.tag | string | `"v1.52.24"` |  |
+| image.tag | string | `"v1.53.0.0"` |  |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` |  |

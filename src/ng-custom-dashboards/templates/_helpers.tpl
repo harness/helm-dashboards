@@ -37,17 +37,17 @@ Common labels
 helm.sh/chart: {{ include "ng-dashboards.chart" . }}
 {{ include "ng-dashboards.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
-ng-dashboards.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-ng-dashboards.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "ng-dashboards.selectorLabels" -}}
-ng-dashboards.kubernetes.io/name: {{ include "ng-dashboards.name" . }}
-ng-dashboards.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: {{ include "ng-dashboards.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*

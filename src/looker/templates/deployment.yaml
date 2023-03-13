@@ -9,10 +9,7 @@ spec:
   progressDeadlineSeconds: 600
   replicas: 1
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: {{.Values.maxSurge}}
-      maxUnavailable: {{.Values.maxUnavailable}}
+    type: Recreate
   selector:
     matchLabels:
       {{- include "looker.selectorLabels" . | nindent 6 }}
@@ -24,6 +21,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        app: looker
+        envoy-rewrite: looker
         podAffinity: looker-app
         {{- include "looker.selectorLabels" . | nindent 8 }}
     spec:
@@ -36,14 +35,20 @@ spec:
         - name: looker-data-ownership-grant
           image: {{ include "common.images.image" (dict "imageRoot" .Values.waitForInitContainer.image "global" .Values.global) }}
           command:
-            - 'sh'
-            - '-c'
-            - 'chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsUser }} "{{ .Values.modelsDirectory }}" "/home/looker/looker/.db"'
+            - 'chown'
+            - '-R'
+            - '{{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsUser }}'
+            - '{{ .Values.modelsDirectory }}'
+            {{- if not .Values.global.ha }}
+            - '/home/looker/looker/.db'
+            {{- end}}
           volumeMounts:
             - name: lookerfiles
               mountPath: {{ .Values.modelsDirectory }}
+            {{- if not .Values.global.ha }}
             - name: looker-db
               mountPath: /home/looker/looker/.db
+            {{- end}}
       containers:
         - name: '{{ include "looker.name" . }}'
           image: {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
@@ -85,11 +90,23 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.timescaleSecrets.password.name }}
                   key: {{ .Values.timescaleSecrets.password.key }}
-            - name: REDSHIFT_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.redshiftSecrets.password.name }}
-                  key: {{ .Values.redshiftSecrets.password.key }}
+                  name: {{ .Values.timescaleSecrets.password.name }}
+                  key: {{ .Values.timescaleSecrets.password.key }}
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.clickhouseSecrets.password.name }}
+                  key: {{ .Values.clickhouseSecrets.password.key }}
+            {{- if .Values.global.ha }}
+            - name: LOOKER_MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysqlSecrets.password.user.name }}
+                  key: {{ .Values.mysqlSecrets.password.user.key }}
+            {{- end}}
           envFrom:
           - configMapRef:
               name: '{{ include "looker.name" . }}'
@@ -105,18 +122,20 @@ spec:
             httpGet:
               path: /alive
               port: looker-api
-            initialDelaySeconds: 60
+            initialDelaySeconds: 600
             timeoutSeconds: 5
             periodSeconds: 10
-            failureThreshold: 20
+            failureThreshold: 12
           volumeMounts:
             - name: looker-startup
               mountPath: /home/looker/looker/lookerstart.cfg
               subPath: lookerstart.cfg
             - name: lookerfiles
               mountPath: {{ .Values.modelsDirectory }}
+            {{- if not .Values.global.ha }}
             - name: looker-db
               mountPath: /home/looker/looker/.db
+            {{- end}}
       volumes:
         - name: looker-startup
           configMap:
@@ -129,10 +148,12 @@ spec:
           persistentVolumeClaim:
             claimName: lookerfiles
             readOnly: false
+        {{- if not .Values.global.ha }}
         - name: looker-db
           persistentVolumeClaim:
             claimName: looker-db
             readOnly: false
+        {{- end}}
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

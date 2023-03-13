@@ -6,7 +6,11 @@ metadata:
   labels:
     {{- include "looker.labels" . | nindent 4 }}
 data:
-  HOST_URL: '{{ ternary "https" "http" .Values.global.ingress.tls.enabled }}://{{ .Values.ingress.host }}'
+  {{- if .Values.global.ingress.enabled }}
+  HOST_URL: '{{ ternary "https" "http" .Values.global.ingress.tls.enabled }}://{{ first .Values.ingress.hosts }}'
+  {{ else if .Values.global.istio.enabled }}
+  HOST_URL: '{{ ternary "https" "http" (not (empty .Values.global.istio.tls)) }}://{{ first .Values.istio.virtualService.hosts }}'
+  {{- end}}
   FIRST_NAME: '{{ .Values.config.firstName }}'
   LAST_NAME: '{{ .Values.config.lastName }}'
   EMAIL: '{{ .Values.config.email }}'
@@ -15,14 +19,27 @@ data:
   TIMESCALE_PORT: '{{ .Values.config.timescalePort }}'
   TIMESCALE_DATABASE: '{{ .Values.config.timescaleDatabase }}'
   TIMESCALE_USER: '{{ .Values.config.timescaleUser }}'
-  REDSHIFT_CONNECTION_NAME: {{ .Values.config.redshiftConnectionName }}
-  REDSHIFT_HOST: {{ .Values.config.redshiftHost }}
-  REDSHIFT_PORT: {{ .Values.config.redshiftPort | quote }}
-  REDSHIFT_DATABASE: {{ .Values.config.redshiftDatabase }}
-  REDSHIFT_USER: {{ .Values.config.redshiftUser }}
+  TIMESCALE_CONNECTION_NAME_FF: '{{ .Values.config.ffConnectionName }}'
+  TIMESCALE_DATABASE_FF: '{{ .Values.config.ffDatabase }}'
+  POSTGRES_CONNECTION_NAME: '{{ .Values.config.stoConnectionName }}'
+  POSTGRES_HOST: '{{ .Values.config.timescaleHost }}'
+  POSTGRES_PORT: '{{ .Values.config.timescalePort }}'
+  POSTGRES_DATABASE: '{{ .Values.config.stoDatabase }}'
+  POSTGRES_USER: '{{ .Values.config.timescaleUser }}'
+  CLICKHOUSE_CONNECTION_NAME: {{ .Values.config.clickhouseConnectionName }}
+  CLICKHOUSE_HOST: {{ .Values.config.clickhouseHost }}
+  CLICKHOUSE_PORT: {{ .Values.config.clickhousePort | quote }}
+  CLICKHOUSE_DATABASE: {{ .Values.config.clickhouseDatabase }}
+  CLICKHOUSE_USER: {{ .Values.config.clickhouseUser }}
   PROJECT_NAME: '{{ .Values.config.projectName }}'
   DOMAIN_WHITELIST: {{ .Values.global.loadbalancerURL }}
   MODELS_DIR: {{ .Values.modelsDirectory }}
+  {{- if .Values.global.ha }}
+  LOOKER_MYSQL_HOST: {{ .Values.mysql.host }}
+  LOOKER_MYSQL_USERNAME: {{ .Values.mysql.user }}
+  LOOKER_MYSQL_DATABASE: {{ .Values.mysql.database }}
+  LOOKER_MYSQL_PORT: {{ .Values.mysql.port | quote }}
+  {{- end}}
 
 ---
 
@@ -34,4 +51,9 @@ metadata:
   labels:
     {{- include "looker.labels" . | nindent 4 }}
 data:
-  lookerstart.cfg: 'LOOKERARGS="--no-ssl --shared-storage-dir={{ .Values.modelsDirectory }}"'
+  lookerstart.cfg: |
+    LOOKERARGS="--no-ssl --shared-storage-dir={{ .Values.modelsDirectory }}
+    {{- if .Values.global.ha }}
+    -d looker-db.yml
+    {{- end}}
+    "

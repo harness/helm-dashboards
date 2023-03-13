@@ -9,7 +9,7 @@ config:
   # -- email address of the support user, required for initial signup and support
   email: 'harnessSupport@harness.io'
   # -- timescale connection name, must match model connection name
-  timescaleConnectionName: 'timescale'
+  timescaleConnectionName: 'smp-timescale'
   # -- timescale hostname
   timescaleHost: 'timescaledb-single-chart.harness'
   # -- timescale port
@@ -18,26 +18,51 @@ config:
   timescaleDatabase: 'harness'
   # -- timescale user
   timescaleUser: 'postgres'
-  # -- redshift connection name, must match model connection name
-  redshiftConnectionName: redshift-ccm
-  # -- redshift hostname
-  redshiftHost:
-  # -- redshift port
-  redshiftPort: '5439'
-  # -- redshift database name
-  redshiftDatabase:
-  # -- redshift user
-  redshiftUser: looker
+  # -- timescale connection name for feature flags, must match model connection name
+  ffConnectionName: 'smp-timescale-cf'
+  # -- timescale database name for feature flags
+  ffDatabase: 'harness_ff'
+  # -- postgres connection name for STO, must match model connection name
+  stoConnectionName: 'smp-postgres'
+  # -- postgres database name for STO
+  stoDatabase: 'harness_sto'
+  # -- clickhouse connection name for CCM, must match model connection name
+  clickhouseConnectionName: smp-clickhouse
+  # -- clickhouse hostname
+  clickhouseHost: 'clickhouse'
+  # -- clickhouse port
+  clickhousePort: '8123'
+  # -- clickhouse database name
+  clickhouseDatabase: 'ccm'
+  # -- clickhouse user
+  clickhouseUser: 'default'
   # -- name of the looker project which will be created
   projectName: 'Harness'
 
+mysql:
+  host: looker-mysql
+  user: looker
+  database: looker
+  port: '3306'
+
+mysqlSecrets:
+  password:
+    root:
+      name: looker-mysql-secrets
+      # -- name of secret containing the mysql root password
+      key: lookerMySqlRootPassword
+    user:
+      name: looker-mysql-secrets
+      # -- name of secret containing the mysql looker user password
+      key: lookerMySqlUserPassword
+
 lookerSecrets:
   licenseKey:
-    name: harness-secrets
+    name: looker-secrets
     # -- name of secret containing the looker license key which will be provided by Harness
     key: lookerLicenseKey
   masterKey:
-    name: harness-secrets
+    name: looker-secrets
     # -- name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32
     key: lookerMasterKey
   clientId:
@@ -55,15 +80,15 @@ timescaleSecrets:
     # -- name of secret containing the timescale password
     key: timescaledbPostgresPassword
 
-redshiftSecrets:
+clickhouseSecrets:
   password:
-    name: harness-secrets
-    # -- name of secret containing the redshift password
-    key: redshiftPassword
+    name: clickhouse
+    # -- name of secret containing the clickhouse password
+    key: admin-password
 
 ingress:
   # -- Required if ingress is enabled, Looker requires a separate DNS domain name to function
-  host: ''
+  hosts: []
   tls:
     secretName: ''
 
@@ -73,7 +98,7 @@ persistentVolume:
     # -- size of volume where Looker stores model files
     models: 2Gi
     # -- size of volume where Looker stores database
-    database: 2Gi
+    database: 20Gi
 
 # -- directory where Looker models volume will be mounted
 modelsDirectory: /mnt/lookerfiles
@@ -81,24 +106,74 @@ modelsDirectory: /mnt/lookerfiles
 global:
   loadbalancerURL: ""
   airgap: "false"
+  ha: false
   storageClassName:
   ingress:
     enabled: false
     className: ''
     tls:
       enabled: false
+  istio:
+    enabled: false
+    gateway:
+      create: false
+    hosts:
+      - '*'
+    virtualService:
+      # Unused if gateway.create is enabled
+      gateways:
+        - "someGateway"
+      hosts:
+        - "myhostname.example.com"
   imagePullSecrets: []
 maxSurge: 1
 maxUnavailable: 0
+
+# looker overrides for istio, if different host and gateway is used is given
+istio:
+  gateway:
+    # enable to create looker gateway
+    create: false
+    port: 443
+    protocol: HTTPS
+  hosts:
+      - '*'
+  tls:
+    credentialName: harness-cert
+    minProtocolVersion: TLSV1_2
+    mode: SIMPLE
+  virtualService:
+    # enable to set specific looker host
+    enabled: false
+    # -- Required if istio is enabled, Looker requires a separate DNS domain name to function
+    hosts:
+    - 'myhostname.example.com'
 
 image:
   registry: docker.io
   repository: harness/looker-signed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "22.18.18.0"
+  tag: "23.2.31"
   digest: ""
   imagePullSecrets: []
+
+  mysql:
+    registry: docker.io
+    repository: harness/mysql
+    tag: "enterprise-server-8.0.32"
+    imagePullSecrets: []
+
+secrets:
+  # -- Required: Looker license key
+  lookerLicenseKey: "ZW52U3BlY2lmaWM="
+  lookerMasterKey: ""
+  lookerClientId: ""
+  lookerClientSecret: ""
+  lookerEmbedSecret: ""
+  lookerSignupUrl: ""
+  lookerMySqlUserPassword: ""
+  lookerMySqlRootPassword: ""
 
 waitForInitContainer:
   image:
@@ -145,6 +220,7 @@ service:
 resources:
   limits:
     cpu: 4
+    # -- minimum of 6GiB recommended
     memory: 8192Mi
   requests:
     cpu: 2
