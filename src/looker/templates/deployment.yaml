@@ -100,6 +100,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.clickhouseSecrets.password.name }}
                   key: {{ .Values.clickhouseSecrets.password.key }}
+                  optional: true
             {{- if .Values.global.ha }}
             - name: LOOKER_MYSQL_PASSWORD
               valueFrom:
