@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   looker:
   - apiVersion: v2
+    appVersion: 23.2.57
+    created: "2023-03-21T13:46:20.448483901Z"
+    dependencies:
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    description: A Helm chart for Kubernetes
+    digest: a3d15fc0c68595fb44c20990a02f4c66646ece154913c63d656acf1280efbe3b
+    name: looker
+    type: application
+    urls:
+    - https://github.com/harness/helm-dashboards/releases/download/looker-0.3.1/looker-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     appVersion: 23.2.31
     created: "2023-03-13T10:40:37.987843868Z"
     dependencies:
@@ -59,6 +73,23 @@ entries:
     - https://github.com/harness/helm-dashboards/releases/download/ng-custom-dashboards-0.1.9/ng-custom-dashboards-0.1.9.tgz
     version: 0.1.9
   ngcustomdashboard:
+  - apiVersion: v2
+    appVersion: 1.0.76620
+    created: "2023-03-21T13:46:20.659286998Z"
+    dependencies:
+    - name: ng-custom-dashboards
+      repository: file://../ng-custom-dashboards
+      version: 0.3.x
+    - name: looker
+      repository: file://../looker
+      version: 0.3.x
+    description: A Helm chart for custom dashboards
+    digest: 8f3cf3ceeb94147bf2af0cf50798f8a92d54d1d3395d90b07fd9ff1024afe121
+    name: ngcustomdashboard
+    type: application
+    urls:
+    - https://github.com/harness/helm-dashboards/releases/download/ngcustomdashboard-0.4.1/ngcustomdashboard-0.4.1.tgz
+    version: 0.4.1
   - apiVersion: v2
     appVersion: 1.0.76620
     created: "2023-03-13T18:40:42.771230517Z"
@@ -195,4 +226,4 @@ entries:
     urls:
     - https://github.com/harness/helm-dashboards/releases/download/ngcustomdashboard-0.2.0/ngcustomdashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-13T18:40:42.771271118Z"
+generated: "2023-03-21T13:46:20.6593609Z"
