@@ -13,7 +13,7 @@ spec:
 
 ---
 
-{{- if not .Values.global.ha }}
+{{- if not .Values.mysql.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

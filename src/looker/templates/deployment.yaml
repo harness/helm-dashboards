@@ -39,13 +39,13 @@ spec:
             - '-R'
             - '{{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsUser }}'
             - '{{ .Values.modelsDirectory }}'
-            {{- if not .Values.global.ha }}
+            {{- if not .Values.mysql.enabled }}
             - '/home/looker/looker/.db'
             {{- end}}
           volumeMounts:
             - name: lookerfiles
               mountPath: {{ .Values.modelsDirectory }}
-            {{- if not .Values.global.ha }}
+            {{- if not .Values.mysql.enabled }}
             - name: looker-db
               mountPath: /home/looker/looker/.db
             {{- end}}
@@ -101,7 +101,7 @@ spec:
                   name: {{ .Values.clickhouseSecrets.password.name }}
                   key: {{ .Values.clickhouseSecrets.password.key }}
                   optional: true
-            {{- if .Values.global.ha }}
+            {{- if .Values.mysql.enabled }}
             - name: LOOKER_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -133,7 +133,7 @@ spec:
               subPath: lookerstart.cfg
             - name: lookerfiles
               mountPath: {{ .Values.modelsDirectory }}
-            {{- if not .Values.global.ha }}
+            {{- if not .Values.mysql.enabled }}
             - name: looker-db
               mountPath: /home/looker/looker/.db
             {{- end}}
@@ -149,7 +149,7 @@ spec:
           persistentVolumeClaim:
             claimName: lookerfiles
             readOnly: false
-        {{- if not .Values.global.ha }}
+        {{- if not .Values.mysql.enabled }}
         - name: looker-db
           persistentVolumeClaim:
             claimName: looker-db

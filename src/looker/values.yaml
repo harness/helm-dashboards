@@ -40,6 +40,7 @@ config:
   projectName: 'Harness'
 
 mysql:
+  enabled: false
   host: looker-mysql
   user: looker
   database: looker
