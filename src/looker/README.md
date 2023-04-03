@@ -1,6 +1,6 @@
 # looker
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.2.57](https://img.shields.io/badge/AppVersion-23.2.57-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.2.57](https://img.shields.io/badge/AppVersion-23.2.57-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -82,6 +82,7 @@ A Helm chart for Kubernetes
 | maxUnavailable | int | `0` |  |
 | modelsDirectory | string | `"/mnt/lookerfiles"` | directory where Looker models volume will be mounted |
 | mysql.database | string | `"looker"` |  |
+| mysql.enabled | bool | `false` |  |
 | mysql.host | string | `"looker-mysql"` |  |
 | mysql.port | string | `"3306"` |  |
 | mysql.user | string | `"looker"` |  |
