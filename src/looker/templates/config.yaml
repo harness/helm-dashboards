@@ -34,7 +34,7 @@ data:
   PROJECT_NAME: '{{ .Values.config.projectName }}'
   DOMAIN_WHITELIST: {{ .Values.global.loadbalancerURL }}
   MODELS_DIR: {{ .Values.modelsDirectory }}
-  {{- if .Values.global.ha }}
+  {{- if .Values.mysql.enabled }}
   LOOKER_MYSQL_HOST: {{ .Values.mysql.host }}
   LOOKER_MYSQL_USERNAME: {{ .Values.mysql.user }}
   LOOKER_MYSQL_DATABASE: {{ .Values.mysql.database }}
@@ -53,7 +53,7 @@ metadata:
 data:
   lookerstart.cfg: |
     LOOKERARGS="--no-ssl --shared-storage-dir={{ .Values.modelsDirectory }}
-    {{- if .Values.global.ha }}
+    {{- if .Values.mysql.enabled }}
     -d looker-db.yml
     {{- end}}
     "
