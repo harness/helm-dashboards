@@ -4,6 +4,6 @@ dependencies:
   version: 0.3.0
 - name: looker
   repository: file://../looker
-  version: 0.3.2
-digest: sha256:3e29c34f3a0b1d11d378048347bf70d7487e858e13f1c9a1a2d5086789f200dc
-generated: "2023-04-03T13:39:49.737017+01:00"
+  version: 0.3.3
+digest: sha256:4a358a190a333a5e4d0eb3248f3695530b7676ef6399371f634ed305abd4e5d3
+generated: "2023-05-03T16:28:09.121803+01:00"

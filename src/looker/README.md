@@ -58,7 +58,7 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/looker-signed"` |  |
-| image.tag | string | `"23.4.29"` |  |
+| image.tag | string | `"23.6.61"` |  |
 | ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | ingress.tls.secretName | string | `""` |  |
 | istio.gateway.create | bool | `false` |  |
