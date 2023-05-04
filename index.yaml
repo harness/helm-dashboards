@@ -101,6 +101,20 @@ entries:
     - https://github.com/harness/helm-dashboards/releases/download/ng-custom-dashboards-0.4.0/ng-custom-dashboards-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
+    appVersion: v1.53.0.4
+    created: "2023-05-04T10:19:43.505452055Z"
+    dependencies:
+    - name: harness-common
+      repository: https://harness.github.io/helm-common
+      version: 1.x.x
+    description: A Helm chart for Kubernetes
+    digest: a658409b8fb84041a0837f1d7009e159b1729a19d92ab9b3c53bf84b7b058fb3
+    name: ng-custom-dashboards
+    type: application
+    urls:
+    - https://github.com/harness/helm-dashboards/releases/download/ng-custom-dashboards-0.3.0/ng-custom-dashboards-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: v1.53.0.0
     created: "2023-03-13T10:40:38.176260754Z"
     dependencies:
@@ -333,4 +347,4 @@ entries:
     urls:
     - https://github.com/harness/helm-dashboards/releases/download/ngcustomdashboard-0.2.0/ngcustomdashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-05-03T15:40:51.800633885Z"
+generated: "2023-05-04T10:19:43.671370866Z"
