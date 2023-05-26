@@ -27,7 +27,7 @@ image:
   repository: harness/dashboard-service-signed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.53.0.4"
+  tag: "v1.53.8"
   digest: ""
   imagePullSecrets: []
 
