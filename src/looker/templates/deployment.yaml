@@ -111,20 +111,22 @@ spec:
           envFrom:
           - configMapRef:
               name: '{{ include "looker.name" . }}'
+          startupProbe:
+            httpGet:
+              path: /alive
+              port: looker-api
+            failureThreshold: 60
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /alive
               port: looker-api
-            initialDelaySeconds: 60
-            timeoutSeconds: 5
-            periodSeconds: 5
-            failureThreshold: 8
+            periodSeconds: 10
+            failureThreshold: 2
           livenessProbe:
             httpGet:
               path: /alive
               port: looker-api
-            initialDelaySeconds: 600
-            timeoutSeconds: 5
             periodSeconds: 10
             failureThreshold: 12
           volumeMounts:

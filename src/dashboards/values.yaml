@@ -29,7 +29,7 @@ ng-custom-dashboards:
     repository: harness/dashboard-service-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.53.0.4"
+    tag: "v1.53.8.0"
     digest: ""
     imagePullSecrets: []
 
@@ -236,7 +236,7 @@ looker:
     repository: harness/looker-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "23.6.61"
+    tag: "23.8.42.0"
     digest: ""
     imagePullSecrets: []
 
