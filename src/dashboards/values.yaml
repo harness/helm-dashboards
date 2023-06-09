@@ -122,11 +122,11 @@ ng-custom-dashboards:
       memory: 768Mi
 
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
+    targetCPU: ""
+    targetMemory: ""
 
   nodeSelector: {}
 
