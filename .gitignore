@@ -1,3 +1,11 @@
 *-local.yaml
 
 .idea/
+
+## Helm Chart ## 
+
+# Chart dependencies
+**/charts/
+
+# Chart lock file
+**/Chart.lock
