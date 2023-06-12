@@ -14,18 +14,23 @@ data:
   FIRST_NAME: '{{ .Values.config.firstName }}'
   LAST_NAME: '{{ .Values.config.lastName }}'
   EMAIL: '{{ .Values.config.email }}'
-  TIMESCALE_CONNECTION_NAME: '{{ .Values.config.timescaleConnectionName }}'
+  {{- if .Values.global.database.timescaledb.installed }}
   TIMESCALE_HOST: '{{ .Values.config.timescaleHost }}'
   TIMESCALE_PORT: '{{ .Values.config.timescalePort }}'
+  TIMESCALE_SSL: 'false'
+  {{- else }}
+  TIMESCALE_HOST: {{ (split ":" (index .Values.global.database.timescaledb.hosts 0))._0 }}
+  TIMESCALE_PORT: {{ (split ":" (index .Values.global.database.timescaledb.hosts 0))._1 | quote }}
+  TIMESCALE_SSL: 'true'
+  {{- end }}  
+  TIMESCALE_CONNECTION_NAME: '{{ .Values.config.timescaleConnectionName }}'
   TIMESCALE_DATABASE: '{{ .Values.config.timescaleDatabase }}'
-  TIMESCALE_USER: '{{ .Values.config.timescaleUser }}'
   TIMESCALE_CONNECTION_NAME_FF: '{{ .Values.config.ffConnectionName }}'
   TIMESCALE_DATABASE_FF: '{{ .Values.config.ffDatabase }}'
   POSTGRES_CONNECTION_NAME: '{{ .Values.config.stoConnectionName }}'
   POSTGRES_HOST: '{{ .Values.config.timescaleHost }}'
   POSTGRES_PORT: '{{ .Values.config.timescalePort }}'
   POSTGRES_DATABASE: '{{ .Values.config.stoDatabase }}'
-  POSTGRES_USER: '{{ .Values.config.timescaleUser }}'
   CLICKHOUSE_CONNECTION_NAME: {{ .Values.config.clickhouseConnectionName }}
   CLICKHOUSE_HOST: {{ .Values.config.clickhouseHost }}
   CLICKHOUSE_PORT: {{ .Values.config.clickhousePort | quote }}

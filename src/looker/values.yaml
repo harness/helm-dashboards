@@ -1,6 +1,6 @@
 # Default values for looker
 # This is a YAML-formatted file.
-
+  
 config:
   # -- name of the user who performs setup and support tasks
   firstName: Harness
@@ -126,6 +126,17 @@ global:
         - "someGateway"
       hosts:
         - "myhostname.example.com"
+  database:
+    timescaledb:
+      installed: true
+      protocol: "jdbc:postgresql"
+      # --  provide default values if mongo.installed is set to false
+      hosts:
+        - external-timescale-chart:543210
+      secretName: ""
+      userKey: ""
+      passwordKey: ""
+      extraArgs: ""
   imagePullSecrets: []
 maxSurge: 1
 maxUnavailable: 0

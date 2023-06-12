@@ -15,10 +15,11 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| autoscaling.enabled | bool | `true` |  |
+| autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
-| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| autoscaling.targetCPU | string | `""` |  |
+| autoscaling.targetMemory | string | `""` |  |
 | config.apiGroupId | string | `"3"` | group ID for API users |
 | config.cacheReloadFrequency | string | `"600"` | time in seconds between cache reloads |
 | config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |

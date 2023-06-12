@@ -85,16 +85,27 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.lookerSecrets.clientId.name }}
                   key: {{ .Values.lookerSecrets.clientId.key }}
+            {{- if .Values.global.database.timescaledb.installed }}
+            - name: TIMESCALE_USER
+              value: '{{ .Values.config.timescaleUser }}'
             - name: TIMESCALE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.timescaleSecrets.password.name }}
                   key: {{ .Values.timescaleSecrets.password.key }}
+            - name: POSTGRES_USER
+              value: '{{ .Values.config.timescaleUser }}'
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.timescaleSecrets.password.name }}
                   key: {{ .Values.timescaleSecrets.password.key }}
+            {{- else }}
+            {{ include "harnesscommon.dbconnection.dbenvuser" (dict "type" "timescale" "variableName" "TIMESCALE_USER" "secret" .Values.global.database.timescaledb.secretName "userKey" .Values.global.database.timescaledb.userKey ) | nindent 12 }}
+            {{ include "harnesscommon.dbconnection.dbenvpassword" (dict "type" "timescale" "variableName" "TIMESCALE_PASSWORD" "secret" .Values.global.database.timescaledb.secretName "passwordKey" .Values.global.database.timescaledb.passwordKey ) | nindent 12 }}
+            {{ include "harnesscommon.dbconnection.dbenvuser" (dict "type" "timescale" "variableName" "POSTGRES_USER" "secret" .Values.global.database.timescaledb.secretName "userKey" .Values.global.database.timescaledb.userKey ) | nindent 12 }}
+            {{ include "harnesscommon.dbconnection.dbenvpassword" (dict "type" "timescale" "variableName" "POSTGRES_PASSWORD" "secret" .Values.global.database.timescaledb.secretName "passwordKey" .Values.global.database.timescaledb.passwordKey ) | nindent 12 }}
+            {{- end }}
             - name: CLICKHOUSE_PASSWORD
               valueFrom:
                 secretKeyRef:

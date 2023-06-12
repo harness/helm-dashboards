@@ -37,6 +37,13 @@ A Helm chart for Kubernetes
 | config.timescaleUser | string | `"postgres"` | timescale user |
 | fullnameOverride | string | `""` |  |
 | global.airgap | string | `"false"` |  |
+| global.database.timescaledb.extraArgs | string | `""` |  |
+| global.database.timescaledb.hosts | list | `["external-timescale-chart:543210"]` | provide default values if mongo.installed is set to false |
+| global.database.timescaledb.installed | bool | `true` |  |
+| global.database.timescaledb.passwordKey | string | `""` |  |
+| global.database.timescaledb.protocol | string | `"jdbc:postgresql"` |  |
+| global.database.timescaledb.secretName | string | `""` |  |
+| global.database.timescaledb.userKey | string | `""` |  |
 | global.ha | bool | `false` |  |
 | global.imagePullSecrets | list | `[]` |  |
 | global.ingress.className | string | `""` |  |
