@@ -1,6 +1,6 @@
 # looker
 
-![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.8.42.0](https://img.shields.io/badge/AppVersion-23.8.42.0-informational?style=flat-square)
+![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.8.47](https://img.shields.io/badge/AppVersion-23.8.47-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -21,7 +21,9 @@ A Helm chart for Kubernetes
 | config.clickhouseDatabase | string | `"ccm"` | clickhouse database name |
 | config.clickhouseHost | string | `"clickhouse"` | clickhouse hostname |
 | config.clickhousePort | string | `"8123"` | clickhouse port |
+| config.clickhouseSsl | string | `"false"` | enabled SSL connection for clickhouse |
 | config.clickhouseUser | string | `"default"` | clickhouse user |
+| config.clickhouseVerifySsl | string | `"false"` | use verified SSL connection for clickhouse |
 | config.email | string | `"harnessSupport@harness.io"` | email address of the support user, required for initial signup and support |
 | config.ffConnectionName | string | `"smp-timescale-cf"` | timescale connection name for feature flags, must match model connection name |
 | config.ffDatabase | string | `"harness_ff"` | timescale database name for feature flags |
@@ -34,7 +36,9 @@ A Helm chart for Kubernetes
 | config.timescaleDatabase | string | `"harness"` | timescale database name |
 | config.timescaleHost | string | `"timescaledb-single-chart.harness"` | timescale hostname |
 | config.timescalePort | string | `"5432"` | timescale port |
+| config.timescaleSsl | string | `"false"` | enabled SSL connection for timescale |
 | config.timescaleUser | string | `"postgres"` | timescale user |
+| config.timescaleVerifySsl | string | `"false"` | use verified SSL connection for timescale |
 | fullnameOverride | string | `""` |  |
 | global.airgap | string | `"false"` |  |
 | global.ha | bool | `false` |  |
@@ -58,7 +62,7 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/looker-signed"` |  |
-| image.tag | string | `"23.8.42.0"` |  |
+| image.tag | string | `"23.8.47"` |  |
 | ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | ingress.tls.secretName | string | `""` |  |
 | istio.gateway.create | bool | `false` |  |
