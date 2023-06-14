@@ -245,10 +245,11 @@ extraVolumes: []
 #     mountPath: /opt/harness/config
 extraVolumeMounts: []
 
-lifecycleHooks:
-  postStart:
-    exec:
-      command:
-  preStop:
-    exec:
-      command:
+lifecycleHooks: {}
+# lifecycleHooks:
+#   postStart:
+#     exec:
+#       command:
+#   preStop:
+#     exec:
+#       command:
