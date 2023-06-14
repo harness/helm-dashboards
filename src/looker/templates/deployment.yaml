@@ -139,6 +139,12 @@ spec:
             - name: looker-db
               mountPath: /home/looker/looker/.db
             {{- end}}
+            {{- if .Values.extraVolumeMounts }}
+            {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
+            {{- end }}
+          {{- if .Values.lifecycleHooks }}
+          lifecycle: {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
+          {{- end }}
       volumes:
         - name: looker-startup
           configMap:
@@ -147,6 +153,9 @@ spec:
             items:
               - key: lookerstart.cfg
                 path: lookerstart.cfg
+        {{- if .Values.extraVolumes }}
+        {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
+        {{- end }}
         - name: lookerfiles
           persistentVolumeClaim:
             claimName: lookerfiles
