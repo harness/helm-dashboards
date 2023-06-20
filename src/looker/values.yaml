@@ -220,7 +220,6 @@ service:
 
 resources:
   limits:
-    cpu: 4
     # -- minimum of 6GiB recommended
     memory: 8192Mi
   requests:
