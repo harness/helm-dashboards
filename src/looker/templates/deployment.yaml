@@ -70,6 +70,13 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.lookerSecrets.licenseKey.name }}
                   key: {{ .Values.lookerSecrets.licenseKey.key }}
+          {{- if .Values.global.airgap }}
+            - name: LICENSE_FILE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.lookerSecrets.licenseFile.name }}
+                  key: {{ .Values.lookerSecrets.licenseFile.key }}
+          {{- end }}
             - name: LKR_MASTER_KEY_ENV
               valueFrom:
                 secretKeyRef:
