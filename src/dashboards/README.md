@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.4.4
+      version: 0.6.2
 ```
 
 ## Publishing the Chart
@@ -63,7 +63,7 @@ Before merging to main please remember to manually update the version.
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
-| looker.image.tag | string | `"23.6.61"` |  |
+| looker.image.tag | string | `"23.8.42.0"` |  |
 | looker.ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | looker.ingress.tls.secretName | string | `""` |  |
 | looker.lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
@@ -132,7 +132,7 @@ Before merging to main please remember to manually update the version.
 | ng-custom-dashboards.image.pullPolicy | string | `"IfNotPresent"` |  |
 | ng-custom-dashboards.image.registry | string | `"docker.io"` |  |
 | ng-custom-dashboards.image.repository | string | `"harness/dashboard-service-signed"` |  |
-| ng-custom-dashboards.image.tag | string | `"v1.53.0.4"` |  |
+| ng-custom-dashboards.image.tag | string | `"v1.53.8.0"` |  |
 | ng-custom-dashboards.lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | ng-custom-dashboards.lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | ng-custom-dashboards.lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` |  |

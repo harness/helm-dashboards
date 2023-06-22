@@ -65,22 +65,31 @@ spec:
           envFrom:
           - configMapRef:
               name: '{{ include "ng-dashboards.name" . }}'
+          startupProbe:
+            httpGet:
+              path: /dashboard/health
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /dashboard/health
               port: http
-            initialDelaySeconds: 20
-            timeoutSeconds: 5
-            periodSeconds: 5
-            failureThreshold: 8
+            periodSeconds: 10
+            failureThreshold: 1
           livenessProbe:
             httpGet:
               path: /dashboard/health
               port: http
-            initialDelaySeconds: 20
-            timeoutSeconds: 5
             periodSeconds: 10
-            failureThreshold: 20
+            failureThreshold: 5
+          {{- if .Values.lifecycleHooks }}
+          lifecycle: {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.extraVolumeMounts }}
+          volumeMounts:
+          {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
+          {{- end }}
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -101,4 +110,8 @@ spec:
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.extraVolumes }}
+      volumes:
+      {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
       {{- end }}

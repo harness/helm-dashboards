@@ -29,7 +29,7 @@ ng-custom-dashboards:
     repository: harness/dashboard-service-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.53.0.4"
+    tag: "v1.53.8.0"
     digest: ""
     imagePullSecrets: []
 
@@ -115,18 +115,17 @@ ng-custom-dashboards:
 
   resources:
     limits:
-      cpu: 1
       memory: 1536Mi
     requests:
       cpu: 1
       memory: 768Mi
 
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
+    targetCPU: ""
+    targetMemory: ""
 
   nodeSelector: {}
 
@@ -236,7 +235,7 @@ looker:
     repository: harness/looker-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "23.6.61"
+    tag: "23.8.42.0"
     digest: ""
     imagePullSecrets: []
 
@@ -279,7 +278,6 @@ looker:
 
   resources:
     limits:
-      cpu: 4
       # -- minimum of 6GiB recommended
       memory: 8192Mi
     requests:
