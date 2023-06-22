@@ -1,6 +1,6 @@
 # looker
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.8.42.0](https://img.shields.io/badge/AppVersion-23.8.42.0-informational?style=flat-square)
+![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.8.58](https://img.shields.io/badge/AppVersion-23.8.58-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -21,7 +21,9 @@ A Helm chart for Kubernetes
 | config.clickhouseDatabase | string | `"ccm"` | clickhouse database name |
 | config.clickhouseHost | string | `"clickhouse"` | clickhouse hostname |
 | config.clickhousePort | string | `"8123"` | clickhouse port |
+| config.clickhouseSsl | string | `"false"` | enabled SSL connection for clickhouse |
 | config.clickhouseUser | string | `"default"` | clickhouse user |
+| config.clickhouseVerifySsl | string | `"false"` | use verified SSL connection for clickhouse |
 | config.email | string | `"harnessSupport@harness.io"` | email address of the support user, required for initial signup and support |
 | config.ffConnectionName | string | `"smp-timescale-cf"` | timescale connection name for feature flags, must match model connection name |
 | config.ffDatabase | string | `"harness_ff"` | timescale database name for feature flags |
@@ -34,7 +36,11 @@ A Helm chart for Kubernetes
 | config.timescaleDatabase | string | `"harness"` | timescale database name |
 | config.timescaleHost | string | `"timescaledb-single-chart.harness"` | timescale hostname |
 | config.timescalePort | string | `"5432"` | timescale port |
+| config.timescaleSsl | string | `"false"` | enabled SSL connection for timescale |
 | config.timescaleUser | string | `"postgres"` | timescale user |
+| config.timescaleVerifySsl | string | `"false"` | use verified SSL connection for timescale |
+| extraVolumeMounts | list | `[]` |  |
+| extraVolumes | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | global.airgap | string | `"false"` |  |
 | global.ha | bool | `false` |  |
@@ -58,7 +64,7 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/looker-signed"` |  |
-| image.tag | string | `"23.8.42.0"` |  |
+| image.tag | string | `"23.8.58"` |  |
 | ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | ingress.tls.secretName | string | `""` |  |
 | istio.gateway.create | bool | `false` |  |
@@ -70,10 +76,13 @@ A Helm chart for Kubernetes
 | istio.tls.mode | string | `"SIMPLE"` |  |
 | istio.virtualService.enabled | bool | `false` |  |
 | istio.virtualService.hosts | list | `["myhostname.example.com"]` | Required if istio is enabled, Looker requires a separate DNS domain name to function |
+| lifecycleHooks | object | `{}` |  |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` | name of secret containing the client secret used for API authentication, generate a 24-byte key, e.g. openssl rand -hex 12 |
 | lookerSecrets.clientSecret.name | string | `"harness-looker-secrets"` |  |
+| lookerSecrets.licenseFile.key | string | `"lookerLicenseFile"` | name of secret containing the offline looker license key which will be provided by Harness |
+| lookerSecrets.licenseFile.name | string | `"looker-secrets"` |  |
 | lookerSecrets.licenseKey.key | string | `"lookerLicenseKey"` | name of secret containing the looker license key which will be provided by Harness |
 | lookerSecrets.licenseKey.name | string | `"looker-secrets"` |  |
 | lookerSecrets.masterKey.key | string | `"lookerMasterKey"` | name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32 |
