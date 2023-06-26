@@ -15,10 +15,11 @@ A Helm chart for Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| autoscaling.enabled | bool | `true` |  |
+| autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
-| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| autoscaling.targetCPU | string | `""` |  |
+| autoscaling.targetMemory | string | `""` |  |
 | config.apiGroupId | string | `"3"` | group ID for API users |
 | config.cacheReloadFrequency | string | `"600"` | time in seconds between cache reloads |
 | config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |
@@ -39,6 +40,8 @@ A Helm chart for Kubernetes
 | config.redisSentinel | string | `"true"` | used to enable Redis Sentinel support |
 | config.redisSentinelMasterName | string | `"harness-redis"` | name of the Redis Sentinel master |
 | config.redisSentinelUrls | string | `""` | list of sentinel URLs, example host:port,host:port |
+| extraVolumeMounts | list | `[]` |  |
+| extraVolumes | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | global.airgap | string | `"false"` |  |
 | global.imagePullSecrets | list | `[]` |  |
@@ -57,6 +60,7 @@ A Helm chart for Kubernetes
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/dashboard-service-signed"` |  |
 | image.tag | string | `"v1.53.8.0"` |  |
+| lifecycleHooks | object | `{}` |  |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` |  |

@@ -63,7 +63,7 @@ Before merging to main please remember to manually update the version.
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
-| looker.image.tag | string | `"23.8.42.0"` |  |
+| looker.image.tag | string | `"23.8.58"` |  |
 | looker.ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | looker.ingress.tls.secretName | string | `""` |  |
 | looker.lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
@@ -104,10 +104,11 @@ Before merging to main please remember to manually update the version.
 | looker.timescaleSecrets.password.name | string | `"harness-secrets"` |  |
 | looker.tolerations | list | `[]` |  |
 | ng-custom-dashboards.affinity | object | `{}` |  |
-| ng-custom-dashboards.autoscaling.enabled | bool | `true` |  |
+| ng-custom-dashboards.autoscaling.enabled | bool | `false` |  |
 | ng-custom-dashboards.autoscaling.maxReplicas | int | `100` |  |
 | ng-custom-dashboards.autoscaling.minReplicas | int | `1` |  |
-| ng-custom-dashboards.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| ng-custom-dashboards.autoscaling.targetCPU | string | `""` |  |
+| ng-custom-dashboards.autoscaling.targetMemory | string | `""` |  |
 | ng-custom-dashboards.config.cacheReloadFrequency | string | `"600"` | time in seconds between cache reloads |
 | ng-custom-dashboards.config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |
 | ng-custom-dashboards.config.lookerApiVersion | string | `"4.0"` | looker sdk param |

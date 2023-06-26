@@ -122,11 +122,11 @@ ng-custom-dashboards:
       memory: 768Mi
 
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
+    targetCPU: ""
+    targetMemory: ""
 
   nodeSelector: {}
 
@@ -236,7 +236,7 @@ looker:
     repository: harness/looker-signed
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "23.8.42.0"
+    tag: "23.8.58"
     digest: ""
     imagePullSecrets: []
 
