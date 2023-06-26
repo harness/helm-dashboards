@@ -70,6 +70,13 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.lookerSecrets.licenseKey.name }}
                   key: {{ .Values.lookerSecrets.licenseKey.key }}
+          {{- if .Values.global.airgap }}
+            - name: LICENSE_FILE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.lookerSecrets.licenseFile.name }}
+                  key: {{ .Values.lookerSecrets.licenseFile.key }}
+          {{- end }}
             - name: LKR_MASTER_KEY_ENV
               valueFrom:
                 secretKeyRef:
@@ -139,6 +146,12 @@ spec:
             - name: looker-db
               mountPath: /home/looker/looker/.db
             {{- end}}
+            {{- if .Values.extraVolumeMounts }}
+            {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
+            {{- end }}
+          {{- if .Values.lifecycleHooks }}
+          lifecycle: {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
+          {{- end }}
       volumes:
         - name: looker-startup
           configMap:
@@ -147,6 +160,9 @@ spec:
             items:
               - key: lookerstart.cfg
                 path: lookerstart.cfg
+        {{- if .Values.extraVolumes }}
+        {{- include "harnesscommon.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
+        {{- end }}
         - name: lookerfiles
           persistentVolumeClaim:
             claimName: lookerfiles

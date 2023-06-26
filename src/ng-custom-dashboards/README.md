@@ -40,6 +40,8 @@ A Helm chart for Kubernetes
 | config.redisSentinel | string | `"true"` | used to enable Redis Sentinel support |
 | config.redisSentinelMasterName | string | `"harness-redis"` | name of the Redis Sentinel master |
 | config.redisSentinelUrls | string | `""` | list of sentinel URLs, example host:port,host:port |
+| extraVolumeMounts | list | `[]` |  |
+| extraVolumes | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | global.airgap | string | `"false"` |  |
 | global.imagePullSecrets | list | `[]` |  |
@@ -58,6 +60,7 @@ A Helm chart for Kubernetes
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/dashboard-service-signed"` |  |
 | image.tag | string | `"v1.53.8.0"` |  |
+| lifecycleHooks | object | `{}` |  |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` |  |

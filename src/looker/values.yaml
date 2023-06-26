@@ -70,6 +70,10 @@ lookerSecrets:
     name: looker-secrets
     # -- name of secret containing the looker license key which will be provided by Harness
     key: lookerLicenseKey
+  licenseFile:
+    name: looker-secrets
+    # -- name of secret containing the offline looker license key which will be provided by Harness
+    key: lookerLicenseFile
   masterKey:
     name: looker-secrets
     # -- name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32
@@ -163,7 +167,7 @@ image:
   repository: harness/looker-signed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "23.8.47"
+  tag: "23.8.58"
   digest: ""
   imagePullSecrets: []
 
@@ -240,3 +244,24 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# extraVolumes:
+#   - name: volume-test
+#     configMap:
+#       name: test-config
+#       # readOnly: true
+extraVolumes: []
+
+# extraVolumeMounts:
+#   - name: volume-test
+#     mountPath: /opt/harness/config
+extraVolumeMounts: []
+
+lifecycleHooks: {}
+# lifecycleHooks:
+#   postStart:
+#     exec:
+#       command:
+#   preStop:
+#     exec:
+#       command:

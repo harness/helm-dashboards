@@ -71,6 +71,9 @@ Create the name of the service account to use
 
 {{- define "looker.generateLookerInternalSecrets" }}
     lookerLicenseKey: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerLicenseKey" "providedValues" (list "secrets.lookerLicenseKey") "length" 32 "context" $) }}
+    {{- if .Values.global.airgap }}
+    lookerLicenseFile: {{ include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerLicenseFile" "providedValues" (list "secrets.lookerLicenseFile") "length" 32 "context" $) }}
+    {{- end }}
     {{- $secretData := (lookup "v1" "Secret" (include "harnesscommon.names.namespace" $) "looker-secrets").data }}
     {{- $lookerMasterKey := include "harnesscommon.secrets.passwords.manage" (dict "secret" "looker-secrets" "key" "lookerMasterKey" "providedValues" (list "secrets.lookerMasterKey") "length" 32 "context" $) }}
     {{- if hasKey $secretData "lookerMasterKey" }}

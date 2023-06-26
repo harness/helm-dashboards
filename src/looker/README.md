@@ -39,6 +39,8 @@ A Helm chart for Kubernetes
 | config.timescaleSsl | string | `"false"` | enabled SSL connection for timescale |
 | config.timescaleUser | string | `"postgres"` | timescale user |
 | config.timescaleVerifySsl | string | `"false"` | use verified SSL connection for timescale |
+| extraVolumeMounts | list | `[]` |  |
+| extraVolumes | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | global.airgap | string | `"false"` |  |
 | global.ha | bool | `false` |  |
@@ -62,7 +64,7 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/looker-signed"` |  |
-| image.tag | string | `"23.8.47"` |  |
+| image.tag | string | `"23.8.58"` |  |
 | ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | ingress.tls.secretName | string | `""` |  |
 | istio.gateway.create | bool | `false` |  |
@@ -74,10 +76,13 @@ A Helm chart for Kubernetes
 | istio.tls.mode | string | `"SIMPLE"` |  |
 | istio.virtualService.enabled | bool | `false` |  |
 | istio.virtualService.hosts | list | `["myhostname.example.com"]` | Required if istio is enabled, Looker requires a separate DNS domain name to function |
+| lifecycleHooks | object | `{}` |  |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` | name of secret containing the client secret used for API authentication, generate a 24-byte key, e.g. openssl rand -hex 12 |
 | lookerSecrets.clientSecret.name | string | `"harness-looker-secrets"` |  |
+| lookerSecrets.licenseFile.key | string | `"lookerLicenseFile"` | name of secret containing the offline looker license key which will be provided by Harness |
+| lookerSecrets.licenseFile.name | string | `"looker-secrets"` |  |
 | lookerSecrets.licenseKey.key | string | `"lookerLicenseKey"` | name of secret containing the looker license key which will be provided by Harness |
 | lookerSecrets.licenseKey.name | string | `"looker-secrets"` |  |
 | lookerSecrets.masterKey.key | string | `"lookerMasterKey"` | name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32 |
