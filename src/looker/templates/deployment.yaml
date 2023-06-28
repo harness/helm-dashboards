@@ -66,9 +66,11 @@ spec:
               {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- include "harnesscommon.dbconnection.timescaleEnv" (dict "passwordVariableName" "TIMESCALE_PASSWORD" "userVariableName" "TIMESCALE_USER" "context" $) | indent 12}}
-            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "TIMESCALE_SSL" "sslModeVariableName" "TIMESCALE_VERIFY_SSL" "sslModeValue" "verify-full" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "TIMESCALE_SSL" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "TIMESCALE_VERIFY_SSL" "context" $) | indent 12}}
             {{- include "harnesscommon.dbconnection.timescaleEnv" (dict "passwordVariableName" "POSTGRES_PASSWORD" "userVariableName" "POSTGRES_USER" "context" $) | indent 12}}
-            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "POSTGRES_SSL" "sslModeVariableName" "POSTGRES_VERIFY_SSL" "sslModeValue" "verify-full" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "POSTGRES_SSL" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "POSTGRES_VERIFY_SSL" "context" $) | indent 12}}
             - name: LICENSE_KEY
               valueFrom:
                 secretKeyRef:
