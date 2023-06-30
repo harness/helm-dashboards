@@ -1,9 +1,9 @@
 dependencies:
 - name: ng-custom-dashboards
   repository: file://../ng-custom-dashboards
-  version: 0.6.1
+  version: 0.6.2
 - name: looker
   repository: file://../looker
-  version: 0.6.1
-digest: sha256:d5e0cd124da917a39148b09ccacc57a674cbe5ca5243c5bb8f5982951a413a7d
-generated: "2023-06-22T11:04:42.109235+01:00"
+  version: 0.6.2
+digest: sha256:39429ba3de7f884de272f9db1bf7e6492551c4cbfa87426c50d3a8d1714f9413
+generated: "2023-06-30T18:46:10.509978+01:00"
