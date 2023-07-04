@@ -18,7 +18,7 @@ version: 0.5.5
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "23.10.34.2"
+appVersion: "23.10.36"
 dependencies:
   - name: harness-common
     version: 1.x.x
