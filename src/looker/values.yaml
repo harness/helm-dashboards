@@ -139,6 +139,19 @@ global:
       hosts:
         - "myhostname.example.com"
   imagePullSecrets: []
+  database:
+    timescaledb:
+      installed: false
+      protocol: "jdbc:postgresql"
+      # --  provide default values if mongo.installed is set to false
+      hosts:
+        - timescaledb-single-chart:5432
+      secretName: ""
+      userKey: ""
+      passwordKey: ""
+      extraArgs: ""
+      certName: ""
+      certKey: ""
 maxSurge: 1
 maxUnavailable: 0
 
@@ -232,7 +245,6 @@ service:
 
 resources:
   limits:
-    cpu: 4
     # -- minimum of 6GiB recommended
     memory: 8192Mi
   requests:

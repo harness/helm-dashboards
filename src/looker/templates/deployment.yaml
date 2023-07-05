@@ -65,6 +65,12 @@ spec:
           resources:
               {{- toYaml .Values.resources | nindent 12 }}
           env:
+            {{- include "harnesscommon.dbconnection.timescaleEnv" (dict "passwordVariableName" "TIMESCALE_PASSWORD" "userVariableName" "TIMESCALE_USER" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "TIMESCALE_SSL" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "TIMESCALE_VERIFY_SSL" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleEnv" (dict "passwordVariableName" "POSTGRES_PASSWORD" "userVariableName" "POSTGRES_USER" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "POSTGRES_SSL" "context" $) | indent 12}}
+            {{- include "harnesscommon.dbconnection.timescaleSslEnv" (dict "enableSslVariableName" "POSTGRES_VERIFY_SSL" "context" $) | indent 12}}
             - name: LICENSE_KEY
               valueFrom:
                 secretKeyRef:
@@ -92,16 +98,6 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.lookerSecrets.clientId.name }}
                   key: {{ .Values.lookerSecrets.clientId.key }}
-            - name: TIMESCALE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.timescaleSecrets.password.name }}
-                  key: {{ .Values.timescaleSecrets.password.key }}
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.timescaleSecrets.password.name }}
-                  key: {{ .Values.timescaleSecrets.password.key }}
             - name: CLICKHOUSE_PASSWORD
               valueFrom:
                 secretKeyRef:
