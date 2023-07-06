@@ -1,1 +1,1 @@
-src/dashboard/README.md
+src/dashboards/README.md

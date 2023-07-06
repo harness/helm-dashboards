@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,12 +12,165 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.6.2
+      version: 0.7.3
 ```
 
-## Publishing the Chart
-Publishing of the Chart is done automatically by a Github workflow when a change is pushed to the main branch.
-Before merging to main please remember to manually update the version.
+## Required setup
+Our Dashboards application uses a 3rd party application called Looker, Looker must have it's own domain name to work.
+
+A DNS CNAME entry must be created for Looker, it is recommended to use `looker.existing-dns-name.tld` as the domain name.
+
+The Looker CNAME should be setup to point at the existing A record for your installation.
+
+## Configuration
+To enable dashboards the following is the minimum configuration required.
+```yaml
+global:
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+### Airgapped (Offline) install
+To install dashboards in an airgapped system an additional offline license key must be provided.
+```yaml
+looker:
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+    lookerLicenseFile: |
+      xxxxxxx
+      yyyyyyy
+      zzzzzzz
+```
+
+## Configuration Examples
+Since Looker must have it's own domain name the ingress/istio configuration is slightly different to other Harness Charts.
+
+The following examples show only the additional config required for this Chart, you will need to merge this with your existing installations values.yaml overrides. Please take special care when merging the `global` sections.
+
+The following examples all have TLS enabled, to ensure your `looker.domain.tld` domain works correctly you should update your TLS certificates to include this domain. Another option is to create a separate certificate and reference that secret below.
+
+### Ingress
+```yaml
+global:
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  ingress:
+    hosts:
+      - 'looker.domain.tld'
+    tls:
+      secretName: 'looker-tls'
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+### Istio
+Istio has two potential configuration options
+1. Where the Istio gateway is create by the customer.
+2. Where the Istio gateway is create by Harness at a global level.
+3. Where the Istio gateway is create by this Chart.
+
+#### Istio - gateway created by customer
+In this scenario the customer will have to manually update their gateway configuration to route the `looker.domain.tld` domain.
+```yaml
+global:
+  istio:
+    virtualService:
+      gateways:
+      - istio-namespace/gateway-name
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  istio:
+    gateway:
+      create: false
+    virtualService:
+      enabled: true
+      hosts:
+        - looker.domain.tld
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+#### Istio - gateway created by Harness
+In this case, you can simply add the Looker domain to the list of hosts in your existing `global.istio` configuration.
+```yaml
+global:
+  istio:
+    gateway:
+      create: true
+    hosts:
+    - looker.domain.tld
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  istio:
+    gateway:
+      create: false
+    virtualService:
+      enabled: true
+      hosts:
+        - looker.domain.tld
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
+
+#### Istio - gateway created by this Chart
+In this scenario the gateway configuration is provided here in the values.yaml override.
+```yaml
+global:
+  ngcustomdashboard:
+    enabled: true
+
+ng-custom-dashboards:
+  config:
+    lookerPubDomain: 'looker.domain.tld'
+
+looker:
+  istio:
+    gateway:
+      create: true
+      port: 443
+      protocol: HTTPS
+    hosts:
+      - looker.domain.tld
+    tls:
+      mode: SIMPLE
+      credentialName: 'looker-tls'
+    virtualService:
+      enabled: true
+      hosts:
+        - looker.domain.tld
+
+  secrets:
+    lookerLicenseKey: XXXXXXXXXXXXXXXXXXXX
+```
 
 ## Values
 
@@ -63,7 +216,7 @@ Before merging to main please remember to manually update the version.
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
-| looker.image.tag | string | `"23.8.42.0"` |  |
+| looker.image.tag | string | `"23.10.36"` |  |
 | looker.ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | looker.ingress.tls.secretName | string | `""` |  |
 | looker.lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
@@ -104,10 +257,11 @@ Before merging to main please remember to manually update the version.
 | looker.timescaleSecrets.password.name | string | `"harness-secrets"` |  |
 | looker.tolerations | list | `[]` |  |
 | ng-custom-dashboards.affinity | object | `{}` |  |
-| ng-custom-dashboards.autoscaling.enabled | bool | `true` |  |
+| ng-custom-dashboards.autoscaling.enabled | bool | `false` |  |
 | ng-custom-dashboards.autoscaling.maxReplicas | int | `100` |  |
 | ng-custom-dashboards.autoscaling.minReplicas | int | `1` |  |
-| ng-custom-dashboards.autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| ng-custom-dashboards.autoscaling.targetCPU | string | `""` |  |
+| ng-custom-dashboards.autoscaling.targetMemory | string | `""` |  |
 | ng-custom-dashboards.config.cacheReloadFrequency | string | `"600"` | time in seconds between cache reloads |
 | ng-custom-dashboards.config.customerFolderId | string | `"6"` | folder ID of the 'CUSTOMER' folder in looker |
 | ng-custom-dashboards.config.lookerApiVersion | string | `"4.0"` | looker sdk param |

@@ -8,7 +8,7 @@ metadata:
 data:
   {{- if .Values.global.ingress.enabled }}
   HOST_URL: '{{ ternary "https" "http" .Values.global.ingress.tls.enabled }}://{{ first .Values.ingress.hosts }}'
-  {{ else if .Values.global.istio.enabled }}
+  {{- else if .Values.global.istio.enabled }}
   HOST_URL: '{{ ternary "https" "http" (not (empty .Values.global.istio.tls)) }}://{{ first .Values.istio.virtualService.hosts }}'
   {{- end}}
   FIRST_NAME: '{{ .Values.config.firstName }}'
@@ -28,6 +28,8 @@ data:
   CLICKHOUSE_HOST: {{ .Values.config.clickhouseHost }}
   CLICKHOUSE_PORT: {{ .Values.config.clickhousePort | quote }}
   CLICKHOUSE_DATABASE: {{ .Values.config.clickhouseDatabase }}
+  CLICKHOUSE_SSL: '{{ .Values.config.clickhouseSsl }}'
+  CLICKHOUSE_VERIFY_SSL: '{{ .Values.config.clickhouseVerifySsl }}'
   CLICKHOUSE_USER: {{ .Values.config.clickhouseUser }}
   PROJECT_NAME: '{{ .Values.config.projectName }}'
   DOMAIN_WHITELIST: {{ .Values.global.loadbalancerURL }}

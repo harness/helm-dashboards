@@ -16,6 +16,10 @@ config:
   timescalePort: '5432'
   # -- timescale database name
   timescaleDatabase: 'harness'
+  # -- enabled SSL connection for timescale
+  timescaleSsl: 'false'
+  # -- use verified SSL connection for timescale
+  timescaleVerifySsl: 'false'
   # -- timescale user
   timescaleUser: 'postgres'
   # -- timescale connection name for feature flags, must match model connection name
@@ -34,6 +38,10 @@ config:
   clickhousePort: '8123'
   # -- clickhouse database name
   clickhouseDatabase: 'ccm'
+  # -- enabled SSL connection for clickhouse
+  clickhouseSsl: 'false'
+  # -- use verified SSL connection for clickhouse
+  clickhouseVerifySsl: 'false'
   # -- clickhouse user
   clickhouseUser: 'default'
   # -- name of the looker project which will be created
@@ -62,6 +70,10 @@ lookerSecrets:
     name: looker-secrets
     # -- name of secret containing the looker license key which will be provided by Harness
     key: lookerLicenseKey
+  licenseFile:
+    name: looker-secrets
+    # -- name of secret containing the offline looker license key which will be provided by Harness
+    key: lookerLicenseFile
   masterKey:
     name: looker-secrets
     # -- name of secret containing the key used for at rest encryption by looker, generate a Base64, 32-byte key, e.g. openssl rand -base64 32
@@ -168,7 +180,7 @@ image:
   repository: harness/looker-signed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "23.8.42.0"
+  tag: "23.10.36"
   digest: ""
   imagePullSecrets: []
 
