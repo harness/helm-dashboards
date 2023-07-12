@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.6.7](https://img.shields.io/badge/Version-0.6.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.6.8](https://img.shields.io/badge/Version-0.6.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.6.7
+      version: 0.6.8
 ```
 
 ## Required setup
@@ -216,7 +216,7 @@ looker:
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
-| looker.image.tag | string | `"23.10.36"` |  |
+| looker.image.tag | string | `"23.10.47"` |  |
 | looker.ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | looker.ingress.tls.secretName | string | `""` |  |
 | looker.lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
