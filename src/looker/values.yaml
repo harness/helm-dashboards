@@ -141,7 +141,7 @@ global:
   imagePullSecrets: []
   database:
     timescaledb:
-      installed: false
+      installed: true
       protocol: "jdbc:postgresql"
       # --  provide default values if mongo.installed is set to false
       hosts:
