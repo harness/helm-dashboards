@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.7.4](https://img.shields.io/badge/Version-0.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.7.3
+      version: 0.7.4
 ```
 
 ## Required setup
@@ -216,7 +216,7 @@ looker:
 | looker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | looker.image.registry | string | `"docker.io"` |  |
 | looker.image.repository | string | `"harness/looker-signed"` |  |
-| looker.image.tag | string | `"23.10.36"` |  |
+| looker.image.tag | string | `"23.10.47"` |  |
 | looker.ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | looker.ingress.tls.secretName | string | `""` |  |
 | looker.lookerSecrets.clientId.key | string | `"lookerClientId"` | name of secret containing the id used for API authentication, generate a 20-byte key, e.g. openssl rand -hex 10 |
@@ -240,7 +240,6 @@ looker:
 | looker.persistentVolume.storage.models | string | `"2Gi"` | size of volume where Looker stores model files |
 | looker.podAnnotations | object | `{}` |  |
 | looker.podSecurityContext | object | `{}` |  |
-| looker.resources.limits.cpu | int | `4` |  |
 | looker.resources.limits.memory | string | `"8192Mi"` | minimum of 6GiB recommended |
 | looker.resources.requests.cpu | int | `2` |  |
 | looker.resources.requests.memory | string | `"4096Mi"` |  |
@@ -300,7 +299,6 @@ looker:
 | ng-custom-dashboards.podAnnotations | object | `{}` |  |
 | ng-custom-dashboards.podSecurityContext | object | `{}` |  |
 | ng-custom-dashboards.replicaCount | int | `1` |  |
-| ng-custom-dashboards.resources.limits.cpu | int | `1` |  |
 | ng-custom-dashboards.resources.limits.memory | string | `"1536Mi"` |  |
 | ng-custom-dashboards.resources.requests.cpu | int | `1` |  |
 | ng-custom-dashboards.resources.requests.memory | string | `"768Mi"` |  |
