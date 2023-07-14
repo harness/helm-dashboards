@@ -11,7 +11,7 @@ config:
   # -- timescale connection name, must match model connection name
   timescaleConnectionName: 'smp-timescale'
   # -- timescale hostname
-  timescaleHost: 'timescaledb-single-chart.harness'
+  timescaleHost: 'timescaledb-single-chart'
   # -- timescale port
   timescalePort: '5432'
   # -- timescale database name

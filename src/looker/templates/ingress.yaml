@@ -4,6 +4,10 @@ kind: Ingress
 metadata:
   name: '{{ include "looker.name" . }}'
   namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if .Values.global.ingress.nginx.objects.annotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.global.ingress.nginx.objects.annotations "context" $ ) | nindent 4 }}
+    {{- end }}
 spec:
   {{- if .Values.global.ingress.className }}
   ingressClassName: {{ .Values.global.ingress.className | quote }}
