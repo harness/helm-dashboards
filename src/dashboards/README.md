@@ -2,7 +2,7 @@
 
 A Helm chart for custom dashboards
 
-![Version: 0.7.4](https://img.shields.io/badge/Version-0.7.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
+![Version: 0.7.5](https://img.shields.io/badge/Version-0.7.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.76620](https://img.shields.io/badge/AppVersion-1.0.76620-informational?style=flat-square)
 
 ## Usage
 
@@ -12,7 +12,7 @@ Use the following dependency to add this chart repository to your Helm installat
 dependencies:
     - name: ng-custom-dashboards
       repository: https://harness.github.io/helm-dashboards
-      version: 0.7.4
+      version: 0.7.5
 ```
 
 ## Required setup
@@ -207,7 +207,7 @@ looker:
 | looker.config.stoDatabase | string | `"harness_sto"` | postgres database name for STO |
 | looker.config.timescaleConnectionName | string | `"smp-timescale"` | timescale connection name, must match model connection name |
 | looker.config.timescaleDatabase | string | `"harness"` | timescale database name |
-| looker.config.timescaleHost | string | `"timescaledb-single-chart.harness"` | timescale hostname |
+| looker.config.timescaleHost | string | `"timescaledb-single-chart"` | timescale hostname |
 | looker.config.timescalePort | string | `"5432"` | timescale port |
 | looker.config.timescaleUser | string | `"postgres"` | timescale user |
 | looker.fullnameOverride | string | `""` |  |
@@ -286,7 +286,7 @@ looker:
 | ng-custom-dashboards.image.pullPolicy | string | `"IfNotPresent"` |  |
 | ng-custom-dashboards.image.registry | string | `"docker.io"` |  |
 | ng-custom-dashboards.image.repository | string | `"harness/dashboard-service-signed"` |  |
-| ng-custom-dashboards.image.tag | string | `"v1.53.8.0"` |  |
+| ng-custom-dashboards.image.tag | string | `"v1.53.8.2"` |  |
 | ng-custom-dashboards.lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | ng-custom-dashboards.lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
 | ng-custom-dashboards.lookerSecrets.clientSecret.key | string | `"lookerClientSecret"` |  |

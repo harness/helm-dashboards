@@ -1,6 +1,6 @@
 # looker
 
-![Version: 0.6.4](https://img.shields.io/badge/Version-0.6.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.10.47](https://img.shields.io/badge/AppVersion-23.10.47-informational?style=flat-square)
+![Version: 0.6.5](https://img.shields.io/badge/Version-0.6.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.10.47](https://img.shields.io/badge/AppVersion-23.10.47-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -34,7 +34,7 @@ A Helm chart for Kubernetes
 | config.stoDatabase | string | `"harness_sto"` | postgres database name for STO |
 | config.timescaleConnectionName | string | `"smp-timescale"` | timescale connection name, must match model connection name |
 | config.timescaleDatabase | string | `"harness"` | timescale database name |
-| config.timescaleHost | string | `"timescaledb-single-chart.harness"` | timescale hostname |
+| config.timescaleHost | string | `"timescaledb-single-chart"` | timescale hostname |
 | config.timescalePort | string | `"5432"` | timescale port |
 | config.timescaleSsl | string | `"false"` | enabled SSL connection for timescale |
 | config.timescaleUser | string | `"postgres"` | timescale user |
