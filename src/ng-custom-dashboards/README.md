@@ -1,6 +1,6 @@
 # ng-custom-dashboards
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.53.27](https://img.shields.io/badge/AppVersion-v1.53.27-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.54.0](https://img.shields.io/badge/AppVersion-v1.54.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -59,7 +59,7 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/dashboard-service-signed"` |  |
-| image.tag | string | `"v1.53.27"` |  |
+| image.tag | string | `"v1.54.0"` |  |
 | lifecycleHooks | object | `{}` |  |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
