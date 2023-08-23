@@ -33,7 +33,7 @@ data:
   CLICKHOUSE_USER: {{ .Values.config.clickhouseUser }}
   PROJECT_NAME: '{{ .Values.config.projectName }}'
   DOMAIN_WHITELIST: {{ .Values.global.loadbalancerURL }}
-  MODELS_DIR: {{ .Values.modelsDirectory }}
+  MODELS_DIR: {{ .Values.models.persistence.mountPath }}
   {{- if .Values.mysql.enabled }}
   LOOKER_MYSQL_HOST: {{ .Values.mysql.host }}
   LOOKER_MYSQL_USERNAME: {{ .Values.mysql.user }}
@@ -52,7 +52,7 @@ metadata:
     {{- include "looker.labels" . | nindent 4 }}
 data:
   lookerstart.cfg: |
-    LOOKERARGS="--no-ssl --shared-storage-dir={{ .Values.modelsDirectory }}
+    LOOKERARGS="--no-ssl --shared-storage-dir={{ .Values.models.persistence.mountPath }}
     {{- if .Values.mysql.enabled }}
     -d looker-db.yml
     {{- end}}

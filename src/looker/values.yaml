@@ -105,16 +105,46 @@ ingress:
   tls:
     secretName: ''
 
-persistentVolume:
-  accessMode: ReadWriteOnce
-  storage:
-    # -- size of volume where Looker stores model files
-    models: 2Gi
-    # -- size of volume where Looker stores database
-    database: 20Gi
+models:
+  persistence:
+    # -- PVC Storage Class for models data volume
+    # If defined, storageClassName: <storageClass>
+    # If set to "-", storageClassName: "", which disables dynamic provisioning
+    # If undefined (the default) or set to null, no storageClassName spec is
+    #   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    #   GKE, AWS & OpenStack)
+    storageClass: ""
+    # -- Directory where Looker models volume will be mounted
+    mountPath: /mnt/lookerfiles
+    # -- PVC Access Modes for models data volume
+    accessModes:
+      - ReadWriteOnce
+    # -- Size of volume where Looker stores model files
+    size: 2Gi
+    # -- Annotations for the models PVC
+    annotations: {}
+    # -- Name of an existing PVC to use for models
+    existingClaim: ""
+    # -- Name of created PVC
+    claimName: lookerfiles
 
-# -- directory where Looker models volume will be mounted
-modelsDirectory: /mnt/lookerfiles
+database:
+  persistence:
+    # -- PVC Storage Class for database data volume
+    storageClass: ""
+    # -- Directory where Looker database volume will be mounted
+    mountPath: /home/looker/looker/.db
+    # -- PVC Access Modes for database data volume
+    accessModes:
+      - ReadWriteOnce
+    # -- Size of volume where for storing the Looker database
+    size: 20Gi
+    # -- Annotations for the database PVC
+    annotations: {}
+    # -- Name of an existing PVC to use for database
+    existingClaim: ""
+    # -- Name of created PVC
+    claimName: looker-db
 
 global:
   loadbalancerURL: ""
