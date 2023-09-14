@@ -1,6 +1,6 @@
 # looker
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.10.47](https://img.shields.io/badge/AppVersion-23.10.47-informational?style=flat-square)
+![Version: 0.7.2](https://img.shields.io/badge/Version-0.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.14.23.0](https://img.shields.io/badge/AppVersion-23.14.23.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -80,7 +80,7 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/looker-signed"` |  |
-| image.tag | string | `"23.10.47"` |  |
+| image.tag | string | `"23.14.23.0"` |  |
 | ingress.hosts | list | `[]` | Required if ingress is enabled, Looker requires a separate DNS domain name to function |
 | ingress.tls.secretName | string | `""` |  |
 | istio.gateway.create | bool | `false` |  |
