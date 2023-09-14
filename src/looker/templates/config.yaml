@@ -24,21 +24,21 @@ data:
   POSTGRES_HOST: '{{ include "harnesscommon.dbconnection.timescaleHost" (dict "context" $) }}'
   POSTGRES_PORT: '{{ include "harnesscommon.dbconnection.timescalePort" (dict "context" $) }}'
   POSTGRES_DATABASE: '{{ .Values.config.stoDatabase }}'
-  CLICKHOUSE_CONNECTION_NAME: {{ .Values.config.clickhouseConnectionName }}
-  CLICKHOUSE_HOST: {{ .Values.config.clickhouseHost }}
-  CLICKHOUSE_PORT: {{ .Values.config.clickhousePort | quote }}
-  CLICKHOUSE_DATABASE: {{ .Values.config.clickhouseDatabase }}
+  CLICKHOUSE_CONNECTION_NAME: '{{ .Values.config.clickhouseConnectionName }}'
+  CLICKHOUSE_HOST: '{{ .Values.config.clickhouseHost }}'
+  CLICKHOUSE_PORT: '{{ .Values.config.clickhousePort }}'
+  CLICKHOUSE_DATABASE: '{{ .Values.config.clickhouseDatabase }}'
   CLICKHOUSE_SSL: '{{ .Values.config.clickhouseSsl }}'
   CLICKHOUSE_VERIFY_SSL: '{{ .Values.config.clickhouseVerifySsl }}'
-  CLICKHOUSE_USER: {{ .Values.config.clickhouseUser }}
+  CLICKHOUSE_USER: '{{ .Values.config.clickhouseUser }}'
   PROJECT_NAME: '{{ .Values.config.projectName }}'
-  DOMAIN_WHITELIST: {{ .Values.global.loadbalancerURL }}
-  MODELS_DIR: {{ .Values.models.persistence.mountPath }}
+  DOMAIN_WHITELIST: '{{ .Values.global.loadbalancerURL }}'
+  MODELS_DIR: '{{ .Values.models.persistence.mountPath }}'
   {{- if .Values.mysql.enabled }}
-  LOOKER_MYSQL_HOST: {{ .Values.mysql.host }}
-  LOOKER_MYSQL_USERNAME: {{ .Values.mysql.user }}
-  LOOKER_MYSQL_DATABASE: {{ .Values.mysql.database }}
-  LOOKER_MYSQL_PORT: {{ .Values.mysql.port | quote }}
+  LOOKER_MYSQL_HOST: '{{ .Values.mysql.host }}'
+  LOOKER_MYSQL_USERNAME: '{{ .Values.mysql.user }}'
+  LOOKER_MYSQL_DATABASE: '{{ .Values.mysql.database }}'
+  LOOKER_MYSQL_PORT: '{{ .Values.mysql.port }}'
   {{- end}}
 
 ---

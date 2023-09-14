@@ -18,8 +18,8 @@ data:
   BASEURL_NG_MANAGER: http://ng-manager:7090
   API_GROUP_ID: '{{ .Values.config.apiGroupId }}'
   EMBEDDED_GROUP_ID: '{{ .Values.config.embeddedGroupId }}'
-  LOOKER_PUB_DOMAIN: {{.Values.config.lookerPubDomain}}
-  LOOKER_PUB_SCHEME: {{.Values.config.lookerPubScheme}}
+  LOOKER_PUB_DOMAIN: '{{ .Values.config.lookerPubDomain }}'
+  LOOKER_PUB_SCHEME: '{{ .Values.config.lookerPubScheme }}'
   LOOKERSDK_API_VERSION: '{{ .Values.config.lookerApiVersion }}'
   LOOKERSDK_TIMEOUT: '{{ .Values.config.lookerTimeout }}'
   LOOKERSDK_VERIFY_SSL: '{{ .Values.config.lookerVerifySsl }}'
@@ -30,6 +30,7 @@ data:
   REDIS_PORT: '{{ .Values.config.redisPort }}'
   OOTB_FOLDER_ID: '{{ .Values.config.ootbFolderId }}'
   CUSTOMER_FOLDER_ID: '{{ .Values.config.customerFolderId }}'
+  LOOKER_PROJECT_NAME: '{{ .Values.config.lookerProjectName }}'
   MODEL_PREFIX: '{{ .Values.config.modelPrefix }}'
   REDIS_SENTINEL: '{{ .Values.config.redisSentinel }}'
   {{- if .Values.config.redisSentinelUrls }}

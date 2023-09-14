@@ -1,6 +1,6 @@
 # ng-custom-dashboards
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.54.0](https://img.shields.io/badge/AppVersion-v1.54.0-informational?style=flat-square)
+![Version: 0.7.2](https://img.shields.io/badge/Version-0.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v1.54.13](https://img.shields.io/badge/AppVersion-v1.54.13-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -27,6 +27,7 @@ A Helm chart for Kubernetes
 | config.lookerApiVersion | string | `"4.0"` | looker sdk param |
 | config.lookerHost | string | `"hrns-looker-api"` | hostname of your looker install |
 | config.lookerPort | string | `"19999"` | port of your looker install |
+| config.lookerProjectName | string | `"spoke-smp"` | The name of the Looker Project used for the environment |
 | config.lookerPubDomain | string | `""` | Required: domain name of your looker instance, this must be accessible by users in your organisation |
 | config.lookerPubScheme | string | `"https"` | Required: HTTP scheme used, either http or https |
 | config.lookerScheme | string | `"http"` | scheme used for your looker install, http or https |
@@ -59,7 +60,7 @@ A Helm chart for Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"harness/dashboard-service-signed"` |  |
-| image.tag | string | `"v1.54.0"` |  |
+| image.tag | string | `"v1.54.13"` |  |
 | lifecycleHooks | object | `{}` |  |
 | lookerSecrets.clientId.key | string | `"lookerClientId"` |  |
 | lookerSecrets.clientId.name | string | `"harness-looker-secrets"` |  |
