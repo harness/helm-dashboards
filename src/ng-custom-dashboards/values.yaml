@@ -27,7 +27,7 @@ image:
   repository: harness/dashboard-service-signed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.54.0"
+  tag: "v1.54.13"
   digest: ""
   imagePullSecrets: []
 
@@ -40,6 +40,8 @@ config:
   lookerScheme: 'http'
   # -- hostname of your looker install
   lookerHost: 'hrns-looker-api'
+  # -- The name of the Looker Project used for the environment
+  lookerProjectName: 'spoke-smp'
   # -- port of your looker install
   lookerPort: '19999'
   # -- folder ID of the 'CUSTOMER' folder in looker
