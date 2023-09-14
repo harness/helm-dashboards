@@ -38,16 +38,16 @@ spec:
             - 'chown'
             - '-R'
             - '{{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsUser }}'
-            - '{{ .Values.modelsDirectory }}'
+            - '{{ .Values.models.persistence.mountPath }}'
             {{- if not .Values.mysql.enabled }}
-            - '/home/looker/looker/.db'
+            - '{{ .Values.database.persistence.mountPath }}'
             {{- end}}
           volumeMounts:
             - name: lookerfiles
-              mountPath: {{ .Values.modelsDirectory }}
+              mountPath: {{ .Values.models.persistence.mountPath }}
             {{- if not .Values.mysql.enabled }}
             - name: looker-db
-              mountPath: /home/looker/looker/.db
+              mountPath: {{ .Values.database.persistence.mountPath }}
             {{- end}}
       containers:
         - name: '{{ include "looker.name" . }}'
@@ -137,10 +137,10 @@ spec:
               mountPath: /home/looker/looker/lookerstart.cfg
               subPath: lookerstart.cfg
             - name: lookerfiles
-              mountPath: {{ .Values.modelsDirectory }}
+              mountPath: {{ .Values.models.persistence.mountPath }}
             {{- if not .Values.mysql.enabled }}
             - name: looker-db
-              mountPath: /home/looker/looker/.db
+              mountPath: {{ .Values.database.persistence.mountPath }}
             {{- end}}
             {{- if .Values.extraVolumeMounts }}
             {{- include "harnesscommon.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
@@ -161,12 +161,12 @@ spec:
         {{- end }}
         - name: lookerfiles
           persistentVolumeClaim:
-            claimName: lookerfiles
+            claimName: {{ include "looker.claimName" (dict "persistence" .Values.models.persistence) }}
             readOnly: false
         {{- if not .Values.mysql.enabled }}
         - name: looker-db
           persistentVolumeClaim:
-            claimName: looker-db
+            claimName: {{ include "looker.claimName" (dict "persistence" .Values.database.persistence) }}
             readOnly: false
         {{- end}}
       affinity:

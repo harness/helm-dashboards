@@ -61,6 +61,26 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
+Return true if a PVC object should be created
+*/}}
+{{- define "looker.createPVC" -}}
+{{- if not .persistence.existingClaim }}
+    {{- true -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the PVC name
+*/}}
+{{- define "looker.claimName" -}}
+{{- if .persistence.existingClaim }}
+    {{- .persistence.existingClaim -}}
+{{- else -}}
+    {{- .persistence.claimName -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "looker.pullSecrets" -}}
 {{ include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.waitForInitContainer.image) "global" .Values.global ) }}
 {{- end -}}

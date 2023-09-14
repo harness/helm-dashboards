@@ -1,6 +1,6 @@
 # looker
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.10.47](https://img.shields.io/badge/AppVersion-23.10.47-informational?style=flat-square)
+![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 23.10.47](https://img.shields.io/badge/AppVersion-23.10.47-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -39,6 +39,13 @@ A Helm chart for Kubernetes
 | config.timescaleSsl | string | `"false"` | enabled SSL connection for timescale |
 | config.timescaleUser | string | `"postgres"` | timescale user |
 | config.timescaleVerifySsl | string | `"false"` | use verified SSL connection for timescale |
+| database.persistence.accessModes | list | `["ReadWriteOnce"]` | PVC Access Modes for database data volume |
+| database.persistence.annotations | object | `{}` | Annotations for the database PVC |
+| database.persistence.claimName | string | `"looker-db"` | Name of created PVC |
+| database.persistence.existingClaim | string | `""` | Name of an existing PVC to use for database |
+| database.persistence.mountPath | string | `"/home/looker/looker/.db"` | Directory where Looker database volume will be mounted |
+| database.persistence.size | string | `"20Gi"` | Size of volume where for storing the Looker database |
+| database.persistence.storageClass | string | `""` | PVC Storage Class for database data volume |
 | extraVolumeMounts | list | `[]` |  |
 | extraVolumes | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
@@ -98,7 +105,13 @@ A Helm chart for Kubernetes
 | lookerSecrets.masterKey.name | string | `"looker-secrets"` |  |
 | maxSurge | int | `1` |  |
 | maxUnavailable | int | `0` |  |
-| modelsDirectory | string | `"/mnt/lookerfiles"` | directory where Looker models volume will be mounted |
+| models.persistence.accessModes | list | `["ReadWriteOnce"]` | PVC Access Modes for models data volume |
+| models.persistence.annotations | object | `{}` | Annotations for the models PVC |
+| models.persistence.claimName | string | `"lookerfiles"` | Name of created PVC |
+| models.persistence.existingClaim | string | `""` | Name of an existing PVC to use for models |
+| models.persistence.mountPath | string | `"/mnt/lookerfiles"` | Directory where Looker models volume will be mounted |
+| models.persistence.size | string | `"2Gi"` | Size of volume where Looker stores model files |
+| models.persistence.storageClass | string | `""` | PVC Storage Class for models data volume If defined, storageClassName: <storageClass> If set to "-", storageClassName: "", which disables dynamic provisioning If undefined (the default) or set to null, no storageClassName spec is   set, choosing the default provisioner.  (gp2 on AWS, standard on   GKE, AWS & OpenStack) |
 | mysql.database | string | `"looker"` |  |
 | mysql.enabled | bool | `false` |  |
 | mysql.host | string | `"looker-mysql"` |  |
@@ -110,9 +123,6 @@ A Helm chart for Kubernetes
 | mysqlSecrets.password.user.name | string | `"looker-mysql-secrets"` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| persistentVolume.accessMode | string | `"ReadWriteOnce"` |  |
-| persistentVolume.storage.database | string | `"20Gi"` | size of volume where Looker stores database |
-| persistentVolume.storage.models | string | `"2Gi"` | size of volume where Looker stores model files |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | resources.limits.memory | string | `"8192Mi"` | minimum of 6GiB recommended |
